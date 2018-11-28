@@ -16,9 +16,9 @@ export default class ApplicationViews extends Component {
   render() {
     return (
       <article className="news">
-      <NewsList news={this.state.news} />
+        <NewsList news={this.state.news} />
 
-  </article>
+      </article>
     )
   }
 }
