@@ -2,6 +2,9 @@ import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
 // import ProfileList from "./profiles/Profiles"
 import NewsList from "./news/newslist"
+import EventForm from "./events/EventList"
+import EventItem from "./events/EventItem"
+import EventList from "./events/EventList"
 export default class ApplicationViews extends Component {
 
   newsFromAPI = [
