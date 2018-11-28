@@ -6,12 +6,12 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 
 export default class Nutshell extends Component {
-    render() {
-        return (
-            <React.Fragment>
-              
-            </React.Fragment>
-        )
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <AppViews />
+      </React.Fragment>
+    )
+  }
 }
 
