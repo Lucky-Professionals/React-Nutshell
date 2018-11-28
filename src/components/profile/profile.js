@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { Segment, Image, Button } from 'semantic-ui-react'
-import andy from "./andy.jpg"
+import finn from "./images/finn.jpg"
+import sleepyboi from "./images/sleepyboi.jpg"
 
-const src1 = andy
-const src2 = andy
+const src1 = finn
+const src2 = sleepyboi
 
 export default class ProfilePage extends Component {
   render () {
@@ -17,12 +18,6 @@ export default class ProfilePage extends Component {
       ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei
       ex natum rebum iisque.
     </p>
-  
-  <Button.Group>
-    <Button color="yellow">Edit</Button>
-    <Button.Or />
-    <Button color="red">Delete</Button>
-  </Button.Group>
 
     <p>
       Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi
@@ -36,7 +31,14 @@ export default class ProfilePage extends Component {
       utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi
       convenire mnesarchum eu per, quas minimum postulant per id.
     </p>
+<Button.Group>
+  <Button color="yellow">Edit</Button>
+  <Button.Or />
+  <Button color="red">Delete</Button>
+</Button.Group>
   </Segment>
+  
     )
   }
 }
+
