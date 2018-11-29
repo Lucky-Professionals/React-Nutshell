@@ -86,7 +86,7 @@ export default class MessageForm extends Component {
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
-                    <Button type='submit' onClick={this.constructNewMessage}>Send</Button>
+                    <Button type='submit' onClick={this.newMessage}>Send</Button>
                 </Form>
             </React.Fragment>
         )

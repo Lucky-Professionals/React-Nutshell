@@ -5,7 +5,9 @@ import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
+import NewsForm from "./news/newsForm"
 import MessageForm from "./messages/MessageForm"
+import MessageList from "./messages/MessageList"
 
 
 export default class ApplicationViews extends Component {
@@ -13,7 +15,7 @@ export default class ApplicationViews extends Component {
 
     state = {
         users: [],
-        news: this.newsFromAPI,
+        news: [],
         messages: [],
         isLoaded: false
     }
@@ -28,6 +30,24 @@ export default class ApplicationViews extends Component {
         .then(messages => this.setState({
             messages: messages
         }))
+    deleteMessage = id => DataManager.delete("messages", id)
+        .then(() => DataManager.getAll("messages"))
+        .then(messages => this.setState({
+            messages: messages
+        }))
+    addNews = (news, item) => DataManager.add(news, item)
+        .then(() => DataManager.getAll("news"))
+        .then(news => this.setState({
+            news: news
+        }))
+    deleteNews = (news, id) => {
+        return DataManager.delete(news, id)
+            .then(() => DataManager.getAll("news"))
+            .then(news => this.setState({
+                news: news
+            })
+            )
+    }
 
     componentDidMount() {
         console.log(this.state.news)
@@ -38,12 +58,18 @@ export default class ApplicationViews extends Component {
             .then(allUsers => {
                 newState.users = allUsers
             })
-        .then(() => {
-            DataManager.getAll("messages")
-            .then(allMessages => {
-                newState.messages = allMessages
+            .then(() => {
+                DataManager.getAll("messages")
+                    .then(allMessages => {
+                        newState.messages = allMessages
+                    })
             })
-        })
+        DataManager.getAll("news")
+            .then(allNews => {
+                newState.news = allNews
+            })
+            .then(() =>
+                this.setState(newState))
     }
 
     render() {
@@ -60,7 +86,17 @@ export default class ApplicationViews extends Component {
                     return <NewsList {...props}
                         news={this.state.news} />
                 }} />
-
+                <Route exact path="/messages" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <MessageList {...props}
+                            users={this.state.users}
+                            editMessage={this.editMessage}
+                            deleteMessage={this.deleteMessage}
+                            messages={this.state.messages} />
+                    } else {
+                        return <Redirect to="/" />
+                    }
+                }} />
                 <Route exact path="/messages/new" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <MessageForm {...props}
@@ -70,10 +106,27 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/" />
                     }
                 }} />
+                <Route exact path="/news" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <NewsList {...props} deleteNews={this.deleteNews}
+                            news={this.state.news} />
+                    }
+                    else {
+                        return <Redirect to="/login" />
+                    }
+                }} />
+                < Route path="/news/new" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <NewsForm {...props}
+                            addNews={this.addNews} />
+                    }
+                    else {
+                        return <Redirect to="/login" />
+                    }
+                }} />
 
             </React.Fragment>
 
         )
     }
 }
-
