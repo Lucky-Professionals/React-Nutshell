@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 export default class EventForm extends Component {
 
-// handleFieldChange = (evt) => {
-//   this.props.setTodoItemState(evt.target.value)
+handleFieldChange = (evt) => {
+  this.props.setTodoItemState(evt.target.value)
 
-// }
+}
 
   render() {
     return (
