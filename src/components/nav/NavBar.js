@@ -20,7 +20,7 @@ export default class NavBar extends Component {
           <Link className="nav-link" to="/messages">Messages</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/tasks">Tasks</Link>
+          <Link className="nav-link" to="/todos">Todos</Link>
         </li>
         {/* <li className="nav-item">
           <Link className="nav-link" to="/friends">Friends</Link>

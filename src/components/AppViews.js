@@ -8,6 +8,10 @@ import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
+import MessageForm from "./messages/MessageForm"
+import MessageList from "./messages/MessageList"
+import TodoForm from './todo/TodoForm'
+import TodoList from './todo/TodoList'
 
 
 export default class ApplicationViews extends Component {
@@ -16,13 +20,28 @@ export default class ApplicationViews extends Component {
   state = {
     users: [],
     news: [],
-    events: []
+    events: [],
+    messages: [],
+    todos: [],
+    isLoaded: false
   }
 
   addUser = users => DataManager.add("users", users)
     .then(() => DataManager.getAll("users"))
     .then(users => this.setState({
       users: users
+    }))
+
+  addMessage = messages => DataManager.add("messages", messages)
+    .then(() => DataManager.getAll("messages"))
+    .then(messages => this.setState({
+      messages: messages
+    }))
+
+  deleteMessage = id => DataManager.delete("messages", id)
+    .then(() => DataManager.getAll("messages"))
+    .then(messages => this.setState({
+      messages: messages
     }))
 
   addEvent = events => DataManager.add("events", events)
@@ -44,6 +63,12 @@ export default class ApplicationViews extends Component {
       .then(allUsers => {
         newState.users = allUsers
       })
+
+    DataManager.getAll("messages")
+      .then(allMessages => {
+        newState.messages = allMessages
+      })
+
 
     DataManager.getAll("events")
       .then(allEvents => {
@@ -96,6 +121,27 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        <Route exact path="/messages" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <MessageList {...props}
+              users={this.state.users}
+              editMessage={this.editMessage}
+              deleteMessage={this.deleteMessage}
+              messages={this.state.messages} />
+          } else {
+            return <Redirect to="/" />
+          }
+        }} />
+        <Route exact path="/messages/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <MessageForm {...props}
+              messages={this.state.messages}
+              addMessage={this.addMessage} />
+          } else {
+            return <Redirect to="/" />
+          }
+        }} />
         < Route path="/news/new" render={(props) => {
           if (this.isAuthenticated()) {
             return <NewsForm {...props}
@@ -104,6 +150,13 @@ export default class ApplicationViews extends Component {
           else {
             return <Redirect to="/login" />
           }
+        }} />
+        <Route exact path="/todos" render={(props) => {
+          return <TodoList {...props} todos={this.state.todos} />
+        }} />
+
+        <Route path="/todos/new" render={(props) => {
+          return <TodoForm />
         }} />
       </React.Fragment>
 
