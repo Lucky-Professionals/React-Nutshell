@@ -21,7 +21,7 @@ class TodoList extends Component {
                   <h5 className="card-title">
                   {/* TODO: add icon or remove this */}
                     {/* <img src={dog} className="icon--dog" /> */}
-                    {animal.name}
+                    {todo.name}
                     <Link className="nav-link" to={`/tasks/${todo.id}`}>Details</Link>
                     {/* <a href="#"
                       onClick={() => this.props.deleteAnimal(animal.id)}
