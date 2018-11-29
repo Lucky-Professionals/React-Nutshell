@@ -8,7 +8,7 @@ export default class MessageList extends Component {
 
     render() {
         const credentials = JSON.parse(localStorage.getItem('credentials'))
-        
+
         return (
             <React.Fragment>
                 <button type="button" className="btn btn-success"
@@ -18,23 +18,28 @@ export default class MessageList extends Component {
                     }>
                     Create new message
             </button>
-            {
-                this.props.messages.map(messages => 
-                    <div id={`message--${messages.id}`} key={messages.id} className="messageCard">
-                    <section>
-                        <p>From:{this.findUserName(messages)}</p>
-                        <p>To:{messages.to}</p>
-                        <p>{messages.message}</p>
-                        <p>{messages.date}</p>
-                        <button
-                        onClick={() => this.props.deleteMessage(messages.id)
-                            .then(() => this.props.history.push("/messages"))}
-                            >Delete
-                        </button>
-                    </section>
-                    </div>
+                {
+                    this.props.messages.map(messages =>
+                        <div id={`message--${messages.id}`} key={messages.id} className="messageCard">
+                            <section>
+                                <p>From:{this.findUserName(messages)}</p>
+                                <p>To:{messages.to}</p>
+                                <p>{messages.message}</p>
+                                <p>{messages.date}</p>
+                                <button
+                                    onClick={() => this.props.deleteMessage(messages.id)
+                                        .then(() => this.props.history.push("/messages"))}
+                                >Delete
+                                    </button>
+                                <button
+                                    onClick={() => this.props.history.push(`/messages/edit/${messages.id}`)}
+                                    className="card-link-edit"><span>Edit</span>
+                                    </button>
+
+                            </section>
+                        </div>
                     )
-            }
+                }
             </React.Fragment>
         )
     }
