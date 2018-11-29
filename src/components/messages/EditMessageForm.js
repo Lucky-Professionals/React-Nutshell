@@ -44,7 +44,7 @@ export default class EditMessageForm extends Component {
                     <Form.Field>
                         <label htmlFor="message">Message:</label>
                         <input onChange={this.handleFieldChange}
-                            id="message" placeholder={this.state.to} />
+                            id="message" placeholder={this.state.message} />
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
