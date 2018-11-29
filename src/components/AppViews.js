@@ -4,57 +4,85 @@ import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
-import NewsList from "./news/newslist"
+import NewsList from "./news/NewsList"
+import NewsForm from "./news/NewsForm"
 
 export default class ApplicationViews extends Component {
-    isAuthenticated = () => localStorage.getItem("credentials") !== null
+  isAuthenticated = () => localStorage.getItem("credentials") !== null
 
+  state = {
+    users: [],
+    news: []
+  }
 
+  addUser = users => DataManager.add("users", users)
+    .then(() => DataManager.getAll("users"))
+    .then(users => this.setState({
+      users: users
+    }))
 
-    newsFromAPI = [
-        { id: 1, name: "News Item 1", synopsis: "Synopsis #1", url: "URL#1" },
-        { id: 2, name: "News Item 2", synopsis: "Synopsis #2", url: "URL#2" }
-    ]
+  addNews = (news, item) => DataManager.add(news, item)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
 
-    state = {
-        users: [],
-        news: this.newsFromAPI
-    }
-    addUser = users => DataManager.add("users", users)
-        .then(() => DataManager.getAll("users"))
-        .then(users => this.setState({
-            users: users
-        }))
+  componentDidMount() {
+    const newState = {}
 
-    componentDidMount() {
-        console.log(this.state.news)
+    DataManager.getAll("users")
+      .then(allUsers => {
+        newState.users = allUsers
+      })
+    DataManager.getAll("news")
+      .then(allNews => {
+        newState.news = allNews
+      })
+      .then(() =>
+        this.setState(newState))
+  }
 
-        const newState = {}
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAll("news"))
+      .then(news => this.setState({
+        news: news
+      })
+      )
+  }
 
-        DataManager.getAll("users")
-            .then(allUsers => {
-                newState.users = allUsers
-            })
-    }
+  render() {
+    return (
+      <React.Fragment>
 
-    render() {
-        return (
-            <React.Fragment>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" render={(props) => {
-                    return <Register {...props}
-                        addUser={this.addUser}
-                        users={this.state.users} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" render={(props) => {
+          return <Register {...props}
+            addUser={this.addUser}
+            users={this.state.users} />
+        }} />
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList {...props} deleteNews={this.deleteNews}
+              news={this.state.news} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        < Route path="/news/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsForm {...props}
+              addNews={this.addNews} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
 
-                }} />
-                <Route exact path="/news" render={(props) => {
-                    return <NewsList {...props}
-                        news={this.state.news} />
-                }} />
+      </React.Fragment>
 
-            </React.Fragment>
-
-        )
-    }
+    )
+  }
 }
 
