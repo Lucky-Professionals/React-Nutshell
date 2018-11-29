@@ -1,0 +1,16 @@
+.titleTop {
+  color: navy;
+  text-align: center;
+  margin: 30px;
+}
+
+.textboxCenter {
+  padding: 30px;
+  margin: 5px;
+}
+
+.profilePic {
+  border-radius: 10%;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px black;
+}
