@@ -1,0 +1,11 @@
+.cardSet {
+  display: flex;
+  justify-content: space-around;
+  margin: 100px;
+}
+
+.profileCard {
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px black;
+}
+
