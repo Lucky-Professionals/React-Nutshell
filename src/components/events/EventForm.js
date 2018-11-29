@@ -59,5 +59,6 @@ constructNewEvent = evt => {
           <button type="submit" onClick={this.constructNewEvent} className="save-event-btn">Save</button>
         </form>
     )
+
   }
 }
