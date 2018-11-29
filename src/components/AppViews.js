@@ -53,6 +53,11 @@ export default class ApplicationViews extends Component {
                         news={this.state.news} />
                 }} />
 
+                 <Route exact path="/profile" render={(props) => {
+                    return <NewsList {...props}
+                        news={this.state.news} />
+                }} />
+
             </React.Fragment>
             
         )
