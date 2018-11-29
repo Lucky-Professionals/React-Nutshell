@@ -17,7 +17,7 @@ export default class NewsList extends Component {
           </button>
       </div>
       <div className="article-list">
-      <section className="news list">
+      <section className="news">
         {
           this.props.news.map(news =>
             <div key={news.id}>
