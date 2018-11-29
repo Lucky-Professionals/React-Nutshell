@@ -17,6 +17,8 @@ class AppViews extends Component {
       .then(allTodos => {
         newState.todos = allTodos
       })
+      .then(() => this.setState(newState))
+
   }
 
   render() {

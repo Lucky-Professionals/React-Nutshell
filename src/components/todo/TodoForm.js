@@ -4,7 +4,7 @@ export default class TodoForm extends Component {
 
   // Set initial state
   state = {
-    todo: "",
+    text: "",
     dueDate: ""
   }
 
@@ -35,6 +35,7 @@ export default class TodoForm extends Component {
               onChange={this.handleFieldChange}
               id="dueDate" placeholder="Due date" />
           </div>
+          {/* TODO: add click event functionality  */}
           <button type="submit" onClick={this.constructNewAnimal} className="btn btn-primary">Submit</button>
         </form>
       </React.Fragment>
