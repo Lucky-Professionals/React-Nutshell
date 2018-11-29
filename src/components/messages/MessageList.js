@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import MessageForm from './MessageForm'
 import './Message.css'
 
 export default class MessageList extends Component {
@@ -40,6 +41,7 @@ export default class MessageList extends Component {
                         </div>
                     )
                 }
+                <MessageForm/>
             </React.Fragment>
         )
     }
