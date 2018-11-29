@@ -51,14 +51,16 @@ export default class NewsForm extends Component {
             <input type="text" required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="synopsis" placeholder="Synopsis" />
+              id="synopsis"
+              placeholder="Synopsis" />
           </div>
           <div className="form-group">
             <label htmlFor="url">URL for article</label>
             <input type="text" required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="url" placeholder="URL" />
+              id="url"
+              placeholder="URL" />
           </div>
           <button type="submit" onClick={this.constructNewNews} className="btn btn-primary">Submit</button>
         </form>
