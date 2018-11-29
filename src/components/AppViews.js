@@ -1,41 +1,103 @@
-import { Route } from 'react-router-dom'
-import React, { Component } from 'react'
+import { Route, Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import DataManager from '../module/DataManager'
+import Login from "./login/LoginForm"
+import Register from "./login/RegisterForm"
+import NewsList from "./news/newslist"
+import NewsForm from "./news/newsForm"
 import TodoForm from './todo/TodoForm'
 import TodoList from './todo/TodoList'
-import DataManager from '../module/DataManager';
 
-class AppViews extends Component {
+export default class ApplicationViews extends Component {
+  isAuthenticated = () => localStorage.getItem("credentials") !== null
 
   state = {
+    users: [],
+    news: [],
     todos: []
+
   }
+
+  addUser = users => DataManager.add("users", users)
+    .then(() => DataManager.getAll("users"))
+    .then(users => this.setState({
+      users: users
+    }))
+
+  addNews = (news, item) => DataManager.add(news, item)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
 
   componentDidMount() {
     const newState = {}
-    
+
+    DataManager.getAll("users")
+      .then(allUsers => {
+        newState.users = allUsers
+      })
+    DataManager.getAll("news")
+      .then(allNews => {
+        newState.news = allNews
+      })
     DataManager.getAll("todos")
       .then(allTodos => {
         newState.todos = allTodos
       })
-      .then(() => this.setState(newState))
+      .then(() =>
+        this.setState(newState))
+  }
 
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAll("news"))
+      .then(news => this.setState({
+        news: news
+      })
+      )
   }
 
   render() {
     return (
       <React.Fragment>
 
-         <Route exact path="/todos" render={(props) => {
-          return <TodoList {...props} todos={this.state.todos}/>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" render={(props) => {
+          return <Register {...props}
+            addUser={this.addUser}
+            users={this.state.users} />
+        }} />
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList {...props} deleteNews={this.deleteNews}
+              news={this.state.news} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        < Route path="/news/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsForm {...props}
+              addNews={this.addNews} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+
+        <Route exact path="/todos" render={(props) => {
+          return <TodoList {...props} todos={this.state.todos} />
         }} />
 
         <Route path="/todos/new" render={(props) => {
-          return <TodoForm  />
+          return <TodoForm />
         }} />
 
       </React.Fragment>
+
     )
   }
 }
 
-export default AppViews
