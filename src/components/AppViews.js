@@ -5,62 +5,100 @@ import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
+import NewsForm from "./news/newsForm"
+import ProfilePage from "./profile/profile"
 
 
 export default class ApplicationViews extends Component {
-    isAuthenticated = () => localStorage.getItem("credentials") !== null
+  isAuthenticated = () => localStorage.getItem("credentials") !== null
 
-  
-    
-    newsFromAPI = [
-        { id: 1, name: "News Item 1", synopsis: "Synopsis #1", url: "URL#1" },
-        { id: 2, name: "News Item 2", synopsis: "Synopsis #2", url: "URL#2" }
-    ]
-    
-    state = {
-        users: [],
-        news: this.newsFromAPI
-    }
-    addUser = users => DataManager.add("users", users)
-        .then(() => DataManager.getAll("users"))
-        .then(users => this.setState({
-            users: users
-        }))
+  state = {
+    users: [],
+    news: [],
+    profile: [],
+  }
 
-    componentDidMount() {
-        console.log(this.state.news)
+  addUser = users => DataManager.add("users", users)
+    .then(() => DataManager.getAll("users"))
+    .then(users => this.setState({
+      users: users
+    }))
 
-        const newState = {}
+  addNews = (news, item) => DataManager.add(news, item)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
 
-        DataManager.getAll("users")
-            .then(allUsers => {
-                newState.users = allUsers
-            })
-    }
+  componentDidMount() {
+    const newState = {}
 
-    render() {
-        return (
-            <React.Fragment>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" render={(props) => {
-                    return <Register {...props}
-                        addUser={this.addUser}
-                        users={this.state.users} />
+    DataManager.getAll("users")
+      .then(allUsers => {
+        newState.users = allUsers
+      })
+    DataManager.getAll("news")
+      .then(allNews => {
+        newState.news = allNews
+      })
+      .then(() =>
+        this.setState(newState))
+  }
 
-                }} />
-                <Route exact path="/news" render={(props) => {
-                    return <NewsList {...props}
-                        news={this.state.news} />
-                }} />
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAll("news"))
+      .then(news => this.setState({
+        news: news
+      })
+      )
+  }
 
-                 <Route exact path="/profile" render={(props) => {
-                    return <NewsList {...props}
-                        news={this.state.news} />
-                }} />
+  render() {
+    return (
+      <React.Fragment>
 
-            </React.Fragment>
-            
-        )
-    }
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" render={(props) => {
+          return <Register {...props}
+            addUser={this.addUser}
+            users={this.state.users} />
+        }} />
+
+
+        <Route exact path="/profile" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <ProfilePage {...props}
+              profile={this.state.profile} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+
+
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList {...props} deleteNews={this.deleteNews}
+              news={this.state.news} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        < Route path="/news/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsForm {...props}
+              addNews={this.addNews} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+
+      </React.Fragment>
+
+    )
+  }
 }
 

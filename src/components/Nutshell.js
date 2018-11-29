@@ -4,7 +4,6 @@ import NavBar from "./nav/NavBar"
 
 import "./Nutshell.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import ProfilePage from "./profile/profile";
 
 
 export default class Nutshell extends Component {
@@ -13,7 +12,6 @@ export default class Nutshell extends Component {
             <React.Fragment>
               <NavBar />
               <AppViews />
-              <ProfilePage />
             </React.Fragment>
         )
     }
