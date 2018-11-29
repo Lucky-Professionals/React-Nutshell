@@ -1,16 +1,11 @@
-.titleTop {
-  color: navy;
-  text-align: center;
-  margin: 30px;
+.cardSet {
+  display: flex;
+  justify-content: space-around;
+  margin: 100px;
 }
 
-.textboxCenter {
-  padding: 30px;
-  margin: 5px;
-}
-
-.profilePic {
-  border-radius: 10%;
+.profileCard {
   border: 1px solid black;
   box-shadow: 1px 1px 1px black;
 }
+
