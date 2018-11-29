@@ -6,9 +6,7 @@ import "./todos.css"
 class TodoList extends Component {
   render() {
     return (
-      <React.Fragment>
-
-        
+      <React.Fragment>    
         <div className="todoButton list">
           <button type="button"
             className="btn btn-success"
@@ -19,7 +17,7 @@ class TodoList extends Component {
             Add Todos
           </button>
         </div>
-                
+             
         <section className="todos list">
         
           {

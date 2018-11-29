@@ -1,0 +1,5 @@
+.eventsButton {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 100px 0 10px 0;
+}
