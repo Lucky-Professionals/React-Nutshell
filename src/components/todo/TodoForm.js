@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import './todos.css'
 
 export default class TodoForm extends Component {
 
@@ -15,6 +16,16 @@ export default class TodoForm extends Component {
     this.setState(stateToChange)
   }
 
+  constructNewTodo = evt => {
+    evt.preventDefault()
+      const todo = {
+        text: this.state.text,
+        dueDate: this.state.dueDate
+      }
+      // Create the task and redirect user to Todo list
+      this.props.addTodo(todo).then(() => this.props.history.push("/todos"))
+    }
+
   render() {
     return (
       <React.Fragment>
@@ -24,19 +35,19 @@ export default class TodoForm extends Component {
             <input type="text" required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="todoName"
+              id="text"
               placeholder="Add a task..." />
           </div>
 
           <div className="form-group">
-            <label htmlFor="dueDate">dueDate</label>
+            <label htmlFor="dueDate">Due Date</label>
             <input type="date"  required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="dueDate" placeholder="Due date" />
+              id="dueDate"  />
           </div>
           {/* TODO: add click event functionality  */}
-          <button type="submit" onClick={this.constructNewAnimal} className="btn btn-primary">Submit</button>
+          <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Submit</button>
         </form>
       </React.Fragment>
     )
