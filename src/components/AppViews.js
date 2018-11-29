@@ -6,6 +6,7 @@ import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
+import ProfilePage from "./profile/profilePage"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import MessageForm from "./messages/MessageForm"
@@ -18,6 +19,7 @@ export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
 
   state = {
+    profiles: [],
     users: [],
     news: [],
     events: [],
@@ -109,8 +111,13 @@ export default class ApplicationViews extends Component {
 
         < Route path="/events/new" render={(props) => {
           return <EventForm {...props}
-            addEvent={this.addEvent} />
+          addEvent={this.addEvent} />
         }} />
+        
+        <Route exact path="/profile" render={(props) => {
+          return <ProfilePage {...props}
+          profiles={this.state.profiles} />
+         }} />
 
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
