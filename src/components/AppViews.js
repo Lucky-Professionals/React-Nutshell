@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom'
 import React, { Component } from 'react'
 import TodoForm from './todo/TodoForm'
 import TodoList from './todo/TodoList'
+import DataManager from '../module/DataManager';
 
 class AppViews extends Component {
 
@@ -9,15 +10,24 @@ class AppViews extends Component {
     todos: []
   }
 
+  componentDidMount() {
+    const newState = {}
+    
+    DataManager.getAll("todos")
+      .then(allTodos => {
+        newState.todos = allTodos
+      })
+  }
+
   render() {
     return (
       <React.Fragment>
 
-         <Route exact path="/tasks" render={(props) => {
-          return <TodoList />
+         <Route exact path="/todos" render={(props) => {
+          return <TodoList {...props} todos={this.state.todos}/>
         }} />
 
-        <Route path="/tasks/new" render={(props) => {
+        <Route path="/todos/new" render={(props) => {
           return <TodoForm  />
         }} />
 
