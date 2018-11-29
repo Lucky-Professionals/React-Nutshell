@@ -1,4 +1,3 @@
-
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
@@ -8,6 +7,8 @@ import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import MessageForm from "./messages/MessageForm"
 import MessageList from "./messages/MessageList"
+import TodoForm from './todo/TodoForm'
+import TodoList from './todo/TodoList'
 
 
 export default class ApplicationViews extends Component {
@@ -17,6 +18,7 @@ export default class ApplicationViews extends Component {
         users: [],
         news: [],
         messages: [],
+        todos: [],
         isLoaded: false
     }
     addUser = users => DataManager.add("users", users)
@@ -50,7 +52,6 @@ export default class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.news)
 
         const newState = {}
 
@@ -67,6 +68,10 @@ export default class ApplicationViews extends Component {
         DataManager.getAll("news")
             .then(allNews => {
                 newState.news = allNews
+            })
+        DataManager.getAll("todos")
+            .then(allTodos => {
+                newState.todos = allTodos
             })
             .then(() =>
                 this.setState(newState))
@@ -124,9 +129,15 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/login" />
                     }
                 }} />
+                <Route exact path="/todos" render={(props) => {
+                    return <TodoList {...props} todos={this.state.todos} />
+                }} />
+
+                <Route path="/todos/new" render={(props) => {
+                    return <TodoForm />
+                }} />
 
             </React.Fragment>
-
         )
     }
 }
