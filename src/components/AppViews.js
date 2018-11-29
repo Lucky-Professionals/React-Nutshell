@@ -6,6 +6,7 @@ import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
+import ProfilePage from "./profile/profilePage"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import MessageForm from "./messages/MessageForm"
@@ -20,6 +21,7 @@ export default class ApplicationViews extends Component {
 
     state = {
         users: [],
+        profiles: [],
         news: [],
         events: [],
         messages: [],
@@ -126,7 +128,15 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/login" />
                     }
                 }} />
-
+                < Route path="/news/new" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <NewsForm {...props}
+                            addNews={this.addNews} />
+                    }
+                    else {
+                        return <Redirect to="/login" />
+                    }
+                }} />
                 <Route exact path="/messages" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <MessageList {...props}
@@ -154,15 +164,6 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/login" />
                     }
                 }} />
-                < Route path="/news/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <NewsForm {...props}
-                            addNews={this.addNews} />
-                    }
-                    else {
-                        return <Redirect to="/login" />
-                    }
-                }} />
                 <Route exact path="/todos" render={(props) => {
                     return <TodoList {...props} todos={this.state.todos} />
                 }} />
@@ -170,9 +171,11 @@ export default class ApplicationViews extends Component {
                 <Route path="/todos/new" render={(props) => {
                     return <TodoForm />
                 }} />
+                <Route exact path="/profile" render={(props) => {
+                    return <ProfilePage {...props}
+                        profiles={this.state.profiles} />
+                }} />
             </React.Fragment>
-
-
         )
     }
 }
