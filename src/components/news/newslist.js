@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import "./news.css"
 
+
 export default class NewsList extends Component {
-
-  state = { open: false }
-
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
-
   render() {
-    const { open, dimmer } = this.state
     return (
       <React.Fragment>
 

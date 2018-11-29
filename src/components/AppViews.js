@@ -1,4 +1,3 @@
-
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
@@ -6,13 +5,17 @@ import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
+import TodoForm from './todo/TodoForm'
+import TodoList from './todo/TodoList'
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
 
   state = {
     users: [],
-    news: []
+    news: [],
+    todos: []
+
   }
 
   addUser = users => DataManager.add("users", users)
@@ -37,6 +40,10 @@ export default class ApplicationViews extends Component {
     DataManager.getAll("news")
       .then(allNews => {
         newState.news = allNews
+      })
+    DataManager.getAll("todos")
+      .then(allTodos => {
+        newState.todos = allTodos
       })
       .then(() =>
         this.setState(newState))
@@ -78,6 +85,14 @@ export default class ApplicationViews extends Component {
           else {
             return <Redirect to="/login" />
           }
+        }} />
+
+        <Route exact path="/todos" render={(props) => {
+          return <TodoList {...props} todos={this.state.todos} />
+        }} />
+
+        <Route path="/todos/new" render={(props) => {
+          return <TodoForm />
         }} />
 
       </React.Fragment>
