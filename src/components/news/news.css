@@ -1,12 +1,12 @@
 .newsButton {
   display: flex;
-  justify-content: space-evenly;
-  margin: 100px 0 10px 0;
+  margin: 100px 0 10px 30px;
 }
 
-.newss {
+.news {
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
 }
 
 .card {

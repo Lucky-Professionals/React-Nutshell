@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
-import NewsList from "./news/NewsList"
-import NewsForm from "./news/NewsForm"
+import NewsList from "./news/newslist"
+import NewsForm from "./news/newsForm"
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null

@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import "./news.css"
-// // import NewsItem from "./newsItem"
 
 export default class NewsList extends Component {
+
+  state = { open: false }
+
+  show = dimmer => () => this.setState({ dimmer, open: true })
+  close = () => this.setState({ open: false })
+
   render() {
+    const { open, dimmer } = this.state
     return (
       <React.Fragment>
 
@@ -20,7 +26,7 @@ export default class NewsList extends Component {
         {
           this.props.news.map(news =>
             <div key={news.id}>
-              {news.name}<br />
+             <h3>{news.name}</h3> <br />
               {news.synopsis}<br />
               {news.url}<br />
               <a href="#foo"
