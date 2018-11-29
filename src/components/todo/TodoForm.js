@@ -35,7 +35,7 @@ export default class TodoForm extends Component {
             <input type="text" required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="todoName"
+              id="text"
               placeholder="Add a task..." />
           </div>
 

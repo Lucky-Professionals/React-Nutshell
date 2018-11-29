@@ -63,8 +63,8 @@ export default class ApplicationViews extends Component {
       news: news
     }))
 
-  addTodo = (todo) => DataManager.post(todo)
-    .then(() => DataManager.getAll())
+  addTodo = todos => DataManager.add("todos", todos)
+    .then(() => DataManager.getAll("todos"))
     .then(todos => this.setState({
       todos: todos
     })
@@ -78,6 +78,13 @@ export default class ApplicationViews extends Component {
       })
       )
   }
+
+  deleteTodo = id => DataManager.delete("todos", id)
+    .then(() => DataManager.getAll("todos"))
+    .then(todos => this.setState({
+      todos: todos
+    }))
+
 
   componentDidMount() {
     const newState = {}
@@ -101,7 +108,7 @@ export default class ApplicationViews extends Component {
       .then(allEvents => {
         newState.events = allEvents
       })
-      
+
     DataManager.getAll("news")
       .then(allNews => {
         newState.news = allNews
@@ -179,11 +186,14 @@ export default class ApplicationViews extends Component {
           }
         }} />
         <Route exact path="/todos" render={(props) => {
-          return <TodoList {...props} todos={this.state.todos} />
+          return <TodoList {...props} 
+          todos={this.state.todos}
+          deleteTodo={this.deleteTodo} />
         }} />
 
         <Route path="/todos/new" render={(props) => {
-          return <TodoForm {...props} todos={this.state.todos} />
+          return <TodoForm {...props} 
+           addTodo={this.addTodo}/>
         }} />
         <Route exact path="/profile" render={(props) => {
           return <ProfilePage {...props}
