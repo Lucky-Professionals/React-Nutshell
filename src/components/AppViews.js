@@ -44,13 +44,25 @@ export default class ApplicationViews extends Component {
       messages: messages
     }))
 
-  addEvent = events => DataManager.add("events", events)
+  addEvent = events => DataManager.add(events, events)
+    .then(() => DataManager.getAll("events"))
+    .then(events => this.setState({
+      events: events
+    }))
+
+  deleteEvent = id => DataManager.delete("events", id)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
       events: events
     }))
 
   addNews = (news, item) => DataManager.add(news, item)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
+
+  deleteNews = id => DataManager.delete("news", id)
     .then(() => DataManager.getAll("news"))
     .then(news => this.setState({
       news: news
@@ -91,6 +103,15 @@ export default class ApplicationViews extends Component {
       )
   }
 
+  deleteEvent = (events, id) => {
+    return DataManager.delete(events, id)
+      .then(() => DataManager.getAll("events"))
+      .then(events => this.setState({
+        events: events
+      })
+      )
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -102,14 +123,15 @@ export default class ApplicationViews extends Component {
             users={this.state.users} />
 
         }} />
-        <Route exact path="/events" render={(props) => {
-          return <EventList {...props}
-            events={this.state.events} />
-        }} />
 
         < Route path="/events/new" render={(props) => {
           return <EventForm {...props}
             addEvent={this.addEvent} />
+        }} />
+
+        <Route exact path="/events" render={(props) => {
+          return <EventList {...props} deleteEvent={this.deleteEvent}
+            events={this.state.events} />
         }} />
 
         <Route exact path="/news" render={(props) => {
