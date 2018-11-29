@@ -5,40 +5,39 @@ import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
-import EventForm from "./events/EventList"
-import EventItem from "./events/EventItem"
+import NewsForm from "./news/newsForm"
+import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
+
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
 
-
-
-  newsFromAPI = [
-    { id: 1, name: "News Item 1", synopsis: "Synopsis #1", url: "URL#1" },
-    { id: 2, name: "News Item 2", synopsis: "Synopsis #2", url: "URL#2" }
-  ]
-
   state = {
     users: [],
-    news: this.newsFromAPI,
+    news: [],
     events: []
   }
+
   addUser = users => DataManager.add("users", users)
     .then(() => DataManager.getAll("users"))
     .then(users => this.setState({
       users: users
     }))
 
-    addEvent = events => DataManager.add("events", events)
+  addEvent = events => DataManager.add("events", events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
       events: events
     }))
 
-  componentDidMount() {
-    console.log(this.state.news)
+  addNews = (news, item) => DataManager.add(news, item)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
 
+  componentDidMount() {
     const newState = {}
 
     DataManager.getAll("users")
@@ -46,15 +45,31 @@ export default class ApplicationViews extends Component {
         newState.users = allUsers
       })
 
-      DataManager.getAll("events")
-        .then(allEvents => {
-          newState.events = allEvents
-        })
+    DataManager.getAll("events")
+      .then(allEvents => {
+        newState.events = allEvents
+      })
+    DataManager.getAll("news")
+      .then(allNews => {
+        newState.news = allNews
+      })
+      .then(() =>
+        this.setState(newState))
+  }
+
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAll("news"))
+      .then(news => this.setState({
+        news: news
+      })
+      )
   }
 
   render() {
     return (
       <React.Fragment>
+
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" render={(props) => {
           return <Register {...props}
@@ -62,18 +77,37 @@ export default class ApplicationViews extends Component {
             users={this.state.users} />
 
         }} />
-        <Route exact path="/news" render={(props) => {
-          return <NewsList {...props}
-            news={this.state.news} />
-        }} />
         <Route exact path="/events" render={(props) => {
           return <EventList {...props}
             events={this.state.events} />
-        }}/>
+        }} />
 
-            </React.Fragment>
+        < Route path="/events/new" render={(props) => {
+          return <EventForm {...props}
+            addEvent={this.addEvent} />
+        }} />
+
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList {...props} deleteNews={this.deleteNews}
+              news={this.state.news} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        < Route path="/news/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsForm {...props}
+              addNews={this.addNews} />
+          }
+          else {
+            return <Redirect to="/login" />
+          }
+        }} />
+      </React.Fragment>
+
 
     )
+  }
 }
-}
-
