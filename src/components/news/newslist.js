@@ -7,7 +7,7 @@ export default class NewsList extends Component {
     return (
       <React.Fragment>
 
-      <div className="newsButton">
+      <div className="newsButton list">
           <button type="button"
                   className="btn btn-success"
                   onClick={() => {
@@ -16,11 +16,12 @@ export default class NewsList extends Component {
               Add New Article
           </button>
       </div>
+      <div className="article-list">
       <section className="news list">
         {
           this.props.news.map(news =>
             <div key={news.id}>
-             <h3>{news.name}</h3> <br />
+             <h5>{news.name}</h5>
               {news.synopsis}<br />
               {news.url}<br />
               <a href="#foo"
@@ -30,6 +31,7 @@ export default class NewsList extends Component {
             )
         }
       </section>
+      </div>
       </React.Fragment>
     )
   }

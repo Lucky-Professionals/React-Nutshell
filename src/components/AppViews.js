@@ -87,10 +87,7 @@ export default class ApplicationViews extends Component {
                         users={this.state.users} />
 
                 }} />
-                <Route exact path="/news" render={(props) => {
-                    return <NewsList {...props}
-                        news={this.state.news} />
-                }} />
+
                 <Route exact path="/messages" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <MessageList {...props}
