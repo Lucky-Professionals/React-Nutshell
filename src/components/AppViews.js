@@ -77,6 +77,13 @@ export default class ApplicationViews extends Component {
                 this.setState(newState))
     }
 
+    addTodo = (todo) => DataManager.post(todo)
+    .then(() => DataManager.getAll())
+    .then(todos => this.setState({
+      todos: todos
+    })
+    )
+
     render() {
         return (
             <React.Fragment>
@@ -134,7 +141,7 @@ export default class ApplicationViews extends Component {
                 }} />
 
                 <Route path="/todos/new" render={(props) => {
-                    return <TodoForm />
+                    return <TodoForm {...props} todos={this.state.todos} />
                 }} />
 
             </React.Fragment>
