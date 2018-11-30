@@ -237,6 +237,29 @@ export default class ApplicationViews extends Component {
             news: news
         }))
 
+    addTodo = todos => DataManager.add("todos", todos)
+        .then(() => DataManager.getAll("todos"))
+        .then(todos => this.setState({
+            todos: todos
+        })
+        )
+
+    deleteNews = (news, id) => {
+        return DataManager.delete(news, id)
+            .then(() => DataManager.getAll("news"))
+            .then(news => this.setState({
+                news: news
+            })
+            )
+    }
+
+    deleteTodo = id => DataManager.delete("todos", id)
+        .then(() => DataManager.getAll("todos"))
+        .then(todos => this.setState({
+            todos: todos
+        }))
+
+
     componentDidMount() {
         const newState = {}
 
@@ -250,11 +273,16 @@ export default class ApplicationViews extends Component {
                 newState.messages = allMessages
             })
 
+        DataManager.getAll("todos")
+            .then(allTodos => {
+                newState.todos = allTodos
+            })
 
         DataManager.getAll("events")
             .then(allEvents => {
                 newState.events = allEvents
             })
+
         DataManager.getAll("news")
             .then(allNews => {
                 newState.news = allNews
@@ -263,14 +291,7 @@ export default class ApplicationViews extends Component {
                 this.setState(newState))
     }
 
-    deleteNews = (news, id) => {
-        return DataManager.delete(news, id)
-            .then(() => DataManager.getAll("news"))
-            .then(news => this.setState({
-                news: news
-            })
-            )
-    }
+
 
     render() {
         return (
@@ -314,6 +335,7 @@ export default class ApplicationViews extends Component {
                 <Route exact path="/messages" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <MessageList {...props}
+                            addMessage={this.addMessage}
                             users={this.state.users}
                             editMessage={this.editMessage}
                             deleteMessage={this.deleteMessage}
@@ -322,7 +344,7 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/" />
                     }
                 }} />
-                <Route exact path="/messages/new" render={(props) => {
+                {/* <Route exact path="/messages/new" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <MessageForm {...props}
                             messages={this.state.messages}
@@ -330,7 +352,7 @@ export default class ApplicationViews extends Component {
                     } else {
                         return <Redirect to="/" />
                     }
-                }} />
+                }} /> */}
                 <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />
@@ -339,11 +361,14 @@ export default class ApplicationViews extends Component {
                     }
                 }} />
                 <Route exact path="/todos" render={(props) => {
-                    return <TodoList {...props} todos={this.state.todos} />
+                    return <TodoList {...props}
+                        todos={this.state.todos}
+                        deleteTodo={this.deleteTodo} />
                 }} />
 
                 <Route path="/todos/new" render={(props) => {
-                    return <TodoForm />
+                    return <TodoForm {...props}
+                        addTodo={this.addTodo} />
                 }} />
                 <Route exact path="/profile" render={(props) => {
                     return <ProfilePage {...props}
