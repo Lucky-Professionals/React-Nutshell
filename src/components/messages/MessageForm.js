@@ -29,27 +29,35 @@ export default class MessageForm extends Component {
             date: new Date().toISOString(),
             userId: credentials.id
         }
-
+        console.log(this.props)
         this.props.addMessage(messages)
-            .then(() => this.props.history.push("/messages"))
+        this.setState({
+            messageId: "",
+            messageTo: "",
+            message: "",
+            date: ""
+        })
+
+        // .then(() => this.props.history.push("/messages"))
+
     }
 
     render() {
 
         return (
             <React.Fragment>
-                <Form className="messageForm"> 
+                <Form className="messageForm">
                     <Form.Field>
                         <label>Message</label>
                         <label htmlFor="messageId"></label>
                         <label htmlFor="messageTo">Message To:</label>
                         <input onChange={this.handleFieldChange}
-                            id="messageTo" placeholder='Message To' />
+                            id="messageTo" placeholder='Message To' value={this.state.messageTo}/>
                     </Form.Field>
                     <Form.Field>
                         <label htmlFor="message">Message:</label>
                         <input onChange={this.handleFieldChange}
-                            id="message" placeholder="..." />
+                            id="message" value={this.state.message}/>
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>

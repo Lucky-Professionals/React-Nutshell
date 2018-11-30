@@ -9,7 +9,7 @@ export default class MessageList extends Component {
 
     render() {
         const credentials = JSON.parse(localStorage.getItem('credentials'))
-
+        console.log(this.props)
         return (
             <React.Fragment>
                 <button type="button" className="btn btn-success"
@@ -41,7 +41,7 @@ export default class MessageList extends Component {
                         </div>
                     )
                 }
-                <MessageForm/>
+                <MessageForm {...this.props} />
             </React.Fragment>
         )
     }
