@@ -30,6 +30,9 @@ export default class EventList extends Component {
               <a href="#foo"
                 onClick={() => this.props.deleteEvent("events", events.id)}
                 className="event-delete-btn">Delete </a>
+                <a href="#foo"
+                onClick={() => this.props.deleteEvent("events", events.id)}
+                className="event-delete-btn">Delete </a>
                 </div>
             )
           }
