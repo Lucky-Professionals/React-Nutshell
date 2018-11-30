@@ -9,7 +9,6 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
-import MessageForm from "./messages/MessageForm"
 import MessageList from "./messages/MessageList"
 import EditMessageForm from "./messages/EditMessageForm"
 import TodoForm from './todo/TodoForm'
@@ -57,7 +56,7 @@ export default class ApplicationViews extends Component {
             events: events
         }))
 
-    addNews = (news, item) => DataManager.add(news, item)
+    addNews = (news) => DataManager.add(news)
         .then(() => DataManager.getAll("news"))
         .then(news => this.setState({
             news: news
@@ -170,15 +169,6 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/" />
                     }
                 }} />
-                {/* <Route exact path="/messages/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <MessageForm {...props}
-                            messages={this.state.messages}
-                            addMessage={this.addMessage} />
-                    } else {
-                        return <Redirect to="/" />
-                    }
-                }} /> */}
                 <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />

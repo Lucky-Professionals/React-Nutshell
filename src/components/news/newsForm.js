@@ -22,11 +22,12 @@ export default class NewsForm extends Component {
    */
   constructNewNews = evt => {
     evt.preventDefault()
-
+    const credentials = JSON.parse(localStorage.getItem('credentials'))
       const news = {
         name: this.state.name,
         synopsis: this.state.synopsis,
-        url: this.state.url
+        url: this.state.url,
+        userId: credentials.id
       }
 
       // Create the news and redirect user to news list
