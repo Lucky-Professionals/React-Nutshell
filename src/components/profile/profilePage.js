@@ -1,41 +1,38 @@
 import React, { Component, Link } from "react"
 import { Image, Card, Icon } from 'semantic-ui-react'
-import finn from "./images/finn.jpg"
+import ProfileForm from './profileForm'
+import rebel2 from "./images/rebel2.jpg"
 import "./profile.css"
 
 
 export default class ProfilePage extends Component {
 
 
-  render () {
+  render() {
     return (
       <React.Fragment>
-        <section className="profile list">
-        {
+        <section>
+          {
             this.props.profiles.map(profiles =>
-                <div key={profiles.id} className="card">
-                    <div className="card-body">
-                        <h4 className="card-title">
-                            <img src={finn} className="profilePic" alt="profile pic" />
-                            <p className="card-name">{profiles}.name}</p></h4>
-                            <Link className="nav-link" to={`/profiles/${profiles.id}`}>Details</Link>
-                
-                        
-                    </div>
-                </div>
+              <div className="card list">
+              <Card key={profiles.id}>
+              <Image src={rebel2} />
+              <Card.Content>
+              <Card.Header>{profiles.name}</Card.Header>
+              <Card.Meta>{profiles.location}</Card.Meta>
+              <Card.Description>{profiles.quote}</Card.Description>
+              </Card.Content>
+              </Card>
+              </div>
             )
-        }
+          }
         </section>
-        <div className="profileBtn">
-              <button type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                        this.props.history.push("/profile/new")}
-                    }>Add</button>
-        </div>
-       </React.Fragment>
+
+       
+
+      </React.Fragment>
     )
   }
 }
 
-                              
+
