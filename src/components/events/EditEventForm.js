@@ -4,7 +4,10 @@ import { Button, Form } from 'semantic-ui-react'
 export default class EditEventForm extends Component {
 
     state = {
-
+      name:"",
+      date:"",
+      location:"",
+      id:null
     }
 
     handleFieldChange = evt => {
@@ -14,43 +17,55 @@ export default class EditEventForm extends Component {
     }
 
     componentDidMount() {
-        const editEvent = this.props.events.find(a => a.id === parseInt(this.props.match.params.messageId))
-        this.setState(editEvent)
+        const editEvent = this.props.events.find(a => a.id === parseInt(this.props.match.params.eventsId))
+        this.setState({...editEvent})
     }
+
 
     newEvent = (evt) => {
         evt.preventDefault()
 
-        let editedEvent = {
-            message: this.state.message,
+        let eventObject = {
+          name:this.state.name,
+          date:this.state.date,
+          location:this.state.location,
+          id:this.state.id
+
         }
-        this.props.editMessage(this.state.id, editedEvent)
+        this.props.editEvent(this.state.id, eventObject)
         .then(() => {
-            this.props.history.push("/messages")
+            this.props.history.push("/events")
         })
     }
 
     render () {
-        return (
-        <React.Fragment>
- <Form className="messageForm">
-                    <Form.Field>
-                        <label>Message</label>
-                        <label htmlFor="messageId"></label>
-                        <label htmlFor="messageTo">Message To:</label>
-                        <input onChange={this.handleFieldChange}
-                            id="messageTo" placeholder={this.state.to} />
-                    </Form.Field>
-                    <Form.Field>
-                        <label htmlFor="message">Message:</label>
-                        <input onChange={this.handleFieldChange}
-                            id="message" placeholder={this.state.message} />
-                    </Form.Field>
-                    <Form.Field>
-                    </Form.Field>
-                    <Button type='submit' onClick={this.newMessage}>Send</Button>
-                </Form>
-        </React.Fragment>
-        )
-    }
+      return (
+        <form className="eventForm list">
+        <div className="event-form-group">
+          <label htmlFor="eventName">Event</label>
+          <input type="text" required
+            className="event-form-control"
+            onChange={this.handleFieldChange}
+            id="name"
+            placeholder={this.state.name} />
+        </div>
+        <div className="event-form-group">
+              <label htmlFor="Date">Date</label>
+              <input type="date" required
+                className="event-form-control"
+                onChange={this.handleFieldChange}
+                id="date"
+                placeholder={this.state.date} />
+            </div>
+            <div className="event-form-group">
+              <label htmlFor="Location">Location</label>
+              <input type="text" required
+                className="event-form-control"
+                onChange={this.handleFieldChange}
+                id="location"
+                placeholder={this.state.location} />
+            </div>
+            <button type="submit" onClick={this.newEvent} className="save-event-btn">Save</button>
+          </form>
+      )}
 }

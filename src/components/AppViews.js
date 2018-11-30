@@ -9,6 +9,7 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
+import EditEventForm from "./events/EditEventForm"
 import MessageForm from "./messages/MessageForm"
 import MessageList from "./messages/MessageList"
 import EditMessageForm from "./messages/EditMessageForm"
@@ -36,6 +37,8 @@ export default class ApplicationViews extends Component {
       users: users
     }))
 
+// MESSAGE FUNCTIONS
+
   addMessage = messages => DataManager.add("messages", messages)
     .then(() => DataManager.getAll("messages"))
     .then(messages => this.setState({
@@ -52,6 +55,8 @@ export default class ApplicationViews extends Component {
     .then(messages => this.setState({
       messages: messages
     }))
+
+    // EVENT FUNCTIONS
   addEvent = events => DataManager.add("events", events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
@@ -63,7 +68,14 @@ export default class ApplicationViews extends Component {
     .then(events => this.setState({
       events: events
     }))
+  editEvent = (id, events) => DataManager.edit("events", id, events)
+    .then(() => DataManager.getAll("events"))
+    .then(events => this.setState({
+      events: events
+    }))
 
+
+    // NEWS FUNCTIONS
   addNews = (news, item) => DataManager.add(news, item)
     .then(() => DataManager.getAll("news"))
     .then(news => this.setState({
@@ -116,16 +128,30 @@ export default class ApplicationViews extends Component {
             users={this.state.users} />
 
         }} />
+
+        {/* EVENTS ROUTES */}
+
         <Route exact path="/events" render={(props) => {
           return <EventList {...props}
             events={this.state.events}
-            deleteEvent={this.deleteEvent}/>
+            deleteEvent={this.deleteEvent}
+            editEvent={this.editEvent} />
         }} />
 
         < Route path="/events/new" render={(props) => {
           return <EventForm {...props}
             addEvent={this.addEvent} />
         }} />
+           <Route exact path="/events/edit/:eventsId(\d+)" render={(props) => {
+            return <EditEventForm {...props}
+            editEvent={this.editEvent}
+            events={this.state.events}
+            addEvent={this.addEvent} />
+
+        }} />
+
+
+        {/* NEWS ROUTES */}
 
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
@@ -145,6 +171,9 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        {/* MESSAGE ROUTES */}
+
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
@@ -172,6 +201,9 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        {/* TODO ROUTES */}
+
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props} todos={this.state.todos} />
         }} />
@@ -179,6 +211,9 @@ export default class ApplicationViews extends Component {
         <Route path="/todos/new" render={(props) => {
           return <TodoForm />
         }} />
+
+        {/* PROFILE ROUTES */}
+
         <Route exact path="/profile" render={(props) => {
           return <ProfilePage {...props}
             profiles={this.state.profiles} />

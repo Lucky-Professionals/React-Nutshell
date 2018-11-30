@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export default class EventForm extends Component {
   state = {
+    id: "",
     name: "",
     date: "",
     location: ""
@@ -19,6 +20,7 @@ constructNewEvent = evt => {
   evt.preventDefault()
 
   const createEvent = {
+    id: this.state.id,
     name: this.state.name,
     date: this.state.date,
     location: this.state.location
