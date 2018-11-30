@@ -1,6 +1,8 @@
 .newsButton {
   display: flex;
   margin: 100px 0 10px 30px;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .news {
@@ -13,16 +15,22 @@
 .newsImage {
   /* max-width: 100%; */
   width: 300px;
-  margin: 50px 0
+  margin: 50px;
 }
 
 .eachArticle {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  border: 2px solid grey;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 90%;
+  /* justify-content: center; */
+  border-radius: 15px;
+  margin: 20px 10px;
 }
 
-.articleDetails {
+.article-Details {
   margin-left: 2rem;
   margin-top: 100px;
   line-height: 2;
@@ -45,6 +53,6 @@
 }
 
 .article-list {
-  display: flex;
-  justify-content: flex-start;
+  /* display: flex;
+  flex-direction: row; */
 }

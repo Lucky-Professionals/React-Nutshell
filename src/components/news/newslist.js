@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "./news.css"
-import { Image, Container } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 export default class NewsList extends Component {
   render() {
@@ -17,27 +17,27 @@ export default class NewsList extends Component {
             Add New Article
           </button>
         </div>
-        <div className="article-list">
+          <div className="article-list">
           <section className="news">
             {
               this.props.news.map(news =>
                 <div className="eachArticle">
-                <div key={news.id}>
-                  <Image className="newsImage" src={news.picLink} rounded/>
-                </div>
-                <div className="articleDetails">
-                  <h2>{news.name}</h2>
-                  <h3>{news.synopsis}</h3><br />
-                  {news.url}<br />
-                  <a href="#foo"
-                    onClick={() => this.props.deleteNews("news", news.id)}
-                    className="card-link">Delete </a>
-                </div>
+                  <div key={news.id}>
+                    <Image className="newsImage" src={news.picLink} rounded />
+                  </div>
+                  <div className="article-Details">
+                    <h2>{news.name}</h2>
+                    <h3>{news.synopsis}</h3><br />
+                    {news.url}<br />
+                    <a href="#foo"
+                      onClick={() => this.props.deleteNews("news", news.id)}
+                      className="card-link">Delete </a>
+                  </div>
                 </div>
               )
             }
           </section>
-        </div>
+          </div>
       </React.Fragment>
     )
   }
