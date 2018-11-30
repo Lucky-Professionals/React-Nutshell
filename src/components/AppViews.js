@@ -46,11 +46,13 @@ export default class ApplicationViews extends Component {
     .then(messages => this.setState({
       messages: messages
     }))
+    
   editMessage = (id, messages) => DataManager.edit("messages", id, messages)
     .then(() => DataManager.getAll("messages"))
     .then(messages => this.setState({
       messages: messages
     }))
+
   addEvent = events => DataManager.add("events", events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
