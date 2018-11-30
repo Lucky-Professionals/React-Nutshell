@@ -1,30 +1,35 @@
-import React, { Component } from "react"
-import './todos.css'
+import React, { Component } from 'react'
+import { Button, Form } from 'semantic-ui-react'
 
-export default class TodoForm extends Component {
+export default class TodoEdit extends Component {
 
-  // Set initial state
   state = {
-    text: "",
-    dueDate: ""
+
   }
 
-  // Update state whenever an input field is edited
   handleFieldChange = evt => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
 
-  constructNewTodo = evt => {
+  componentDidMount() {
+    const todo = this.props.todos.find(a => a.id === parseInt(this.props.match.params.todoId))
+    this.setState(todo)
+  }
+
+  constructNewTodo = (evt) => {
     evt.preventDefault()
-      const todo = {
-        text: this.state.text,
-        dueDate: this.state.dueDate
-      }
-      // Create the task and redirect user to Todo list
-      this.props.addTodo(todo).then(() => this.props.history.push("/todos"))
+
+    let editedText = {
+      text: this.state.text,
+      dueDate:this.state.dueDate
     }
+    this.props.editTodo(this.state.id, editedText)
+      .then(() => {
+        this.props.history.push("/todos")
+      })
+  }
 
   render() {
     return (
@@ -32,19 +37,19 @@ export default class TodoForm extends Component {
         <form className="todoForm list">
           <div className="form-group">
             <label htmlFor="todoName">Task</label>
-            <input type="text" required
+            <input type="text" 
               className="form-control"
               onChange={this.handleFieldChange}
               id="text"
-              placeholder="Add a task..." />
+              placeholder={this.state.text} />
           </div>
-
-          <div className="form-group">
+          <div className="form-group ">
             <label htmlFor="dueDate">Due Date</label>
-            <input type="date"  required
+            <input type="date"  
               className="form-control"
               onChange={this.handleFieldChange}
-              id="dueDate"  />
+              id="dueDate"
+              placeholder={this.state.dueDate}  />
           </div>
           <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Submit</button>
         </form>

@@ -8,13 +8,13 @@
   justify-content: space-evenly;
 }
 
-.icon--dog {
-  width: 50px;
-  height: 50px;
+.container {
+ display: flex;
+ flex-direction: column;
 }
 
 .card {
-  width: 10rem;
+  width: auto;
 }
 
 .card-title {
@@ -28,3 +28,4 @@
   margin: 12px 0 0 0;
   font-size: 0.7em;
 }
+

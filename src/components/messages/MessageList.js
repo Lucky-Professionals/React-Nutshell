@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import MessageForm from './MessageForm'
 import './Message.css'
 
 export default class MessageList extends Component {
@@ -8,7 +9,7 @@ export default class MessageList extends Component {
 
     render() {
         const credentials = JSON.parse(localStorage.getItem('credentials'))
-
+        console.log(this.props)
         return (
             <React.Fragment>
                 <button type="button" className="btn btn-success"
@@ -40,6 +41,7 @@ export default class MessageList extends Component {
                         </div>
                     )
                 }
+                <MessageForm {...this.props} />
             </React.Fragment>
         )
     }
