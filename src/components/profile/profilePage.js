@@ -1,35 +1,52 @@
-import React, { Component } from "react"
-import { Image, Card, Icon } from 'semantic-ui-react'
-import finn from "./images/finn.jpg"
-import andy from "./images/andy.jpg"
+import React, { Component, Link } from "react"
+import { Image, Card } from 'semantic-ui-react'
+import rebel2 from "./images/rebel2.jpg"
 import "./profile.css"
-
 
 export default class ProfilePage extends Component {
 
 
-  render () {
-  return (
-    <div className="cardSet">
-       <Card>
-    <Image src={finn} />
-    <Card.Content>
-      <Card.Header>Finn</Card.Header>
-      <Card.Meta>
-        <span className='date'>Joined in 2018</span>
-      </Card.Meta>
-      <Card.Description>Finn is a good boi looking for pets</Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' />
-        22 Friends
-      </a>
-    </Card.Content>
-  </Card>
-  </div>
-)
+  render() {
+    return (
+      <React.Fragment>
+        <div className="profileBtn">
+          <button type="button"
+            className="btn btn-success"
+            onClick={() => {
+              this.props.history.push("/profile/new")
+            }
+            }>Add Your Profile!</button>
+        </div>
+
+        <section>
+          {
+            this.props.profiles.map(profiles =>
+              <div key={profiles.id} className="list">
+                <Card>
+                  <Image src={rebel2} />
+                  <Card.Description>
+                    <Card.Header>{profiles.name}</Card.Header>
+                    <Card.Meta>{profiles.location}</Card.Meta>
+                    <Card.Description>{profiles.quote}</Card.Description>
+                  </Card.Description>
+                  <br></br>
+                  <section>
+                    EDIT
+                    <br></br>
+                  {/* <Link className="nav-link" to={`/profile/${profiles.id}`}>Learn More</Link> */}
+                  <a href=" "
+                     onClick={() => this.props.deleteProfile("profiles", profiles.id)}
+                     className="card-link">Remove</a>
+                  </section>
+                </Card>
+              </div>
+            )
+          }
+        </section>
+
+      </React.Fragment>
+    )
   }
 }
 
-                              
+

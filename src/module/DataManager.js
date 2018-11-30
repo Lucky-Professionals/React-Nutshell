@@ -32,6 +32,18 @@ export default Object.create(null, {
         .then(result => result.json())
     }
   },
+  getAllByUser: {
+    value: (resource, credentials) => {
+      return fetch(`${remoteURL}/${resource}?userId=${credentials}`)
+        .then(result => result.json())
+    }
+  },
+  // getAllfilter: {
+  //     value: (resource, userId) => {
+  //         return fetch(`${remoteURL}/${resource}/${}`)
+  //         .then(result => result.json())
+  //     }
+  // },
   delete: {
     value: (resource, id) => {
       return fetch(`${remoteURL}/${resource}/${id}`, {
@@ -41,18 +53,14 @@ export default Object.create(null, {
   },
   add: {
     value: (resource, item) => {
-
-
       return fetch(`${remoteURL}/${resource}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(item)
-
       })
-        .then(res => res.json())
-        .then(result => result)
+        .then(result => result.json())
     }
   },
   edit: {

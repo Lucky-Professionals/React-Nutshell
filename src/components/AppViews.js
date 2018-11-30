@@ -7,6 +7,8 @@ import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
+import ProfileForm from "./profile/profileForm"
+import ProfileDetails from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import EditEventForm from "./events/EditEventForm"
@@ -18,9 +20,8 @@ import TodoList from './todo/TodoList'
 
 
 export default class ApplicationViews extends Component {
-
   isAuthenticated = () => localStorage.getItem("credentials") !== null
-
+  credentials = JSON.parse(localStorage.getItem('credentials'))
   state = {
     users: [],
     profiles: [],
@@ -76,11 +77,49 @@ export default class ApplicationViews extends Component {
 
 
     // NEWS FUNCTIONS
+
   addNews = (news, item) => DataManager.add(news, item)
-    .then(() => DataManager.getAll("news"))
+    .then(() => DataManager.getAllByUser("news", this.credentials.id))
     .then(news => this.setState({
       news: news
     }))
+  addProfile = (profiles, item) => DataManager.add(profiles, item)
+    .then(() => DataManager.getAll("profiles"))
+    .then(profiles => this.setState({
+      profiles: profiles
+    }))
+
+  deleteProfile = (profiles, item) => {
+    return DataManager.delete(profiles, item)
+      .then(() => DataManager.getAll("profiles"))
+      .then(profiles => this.setState({
+        profiles: profiles
+      })
+      )
+  }
+
+  addTodo = todos => DataManager.add("todos", todos)
+    .then(() => DataManager.getAll("todos"))
+    .then(todos => this.setState({
+      todos: todos
+    })
+    )
+
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAllByUser("news", this.credentials.id))
+      .then(news => this.setState({
+        news: news
+      })
+      )
+  }
+
+  deleteTodo = id => DataManager.delete("todos", id)
+    .then(() => DataManager.getAll("todos"))
+    .then(todos => this.setState({
+      todos: todos
+    }))
+
 
   componentDidMount() {
     const newState = {}
@@ -95,12 +134,22 @@ export default class ApplicationViews extends Component {
         newState.messages = allMessages
       })
 
+    DataManager.getAll("profiles")
+      .then(allProfiles => {
+        newState.profiles = allProfiles
+      })
+
+    DataManager.getAll("todos")
+      .then(allTodos => {
+        newState.todos = allTodos
+      })
 
     DataManager.getAll("events")
       .then(allEvents => {
         newState.events = allEvents
       })
-    DataManager.getAll("news")
+
+    DataManager.getAllByUser("news", this.credentials.id)
       .then(allNews => {
         newState.news = allNews
       })
@@ -108,14 +157,6 @@ export default class ApplicationViews extends Component {
         this.setState(newState))
   }
 
-  deleteNews = (news, id) => {
-    return DataManager.delete(news, id)
-      .then(() => DataManager.getAll("news"))
-      .then(news => this.setState({
-        news: news
-      })
-      )
-  }
 
   render() {
     return (
@@ -171,25 +212,14 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
-
-        {/* MESSAGE ROUTES */}
-
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
+              addMessage={this.addMessage}
               users={this.state.users}
               editMessage={this.editMessage}
               deleteMessage={this.deleteMessage}
               messages={this.state.messages} />
-          } else {
-            return <Redirect to="/" />
-          }
-        }} />
-        <Route exact path="/messages/new" render={(props) => {
-          if (this.isAuthenticated()) {
-            return <MessageForm {...props}
-              messages={this.state.messages}
-              addMessage={this.addMessage} />
           } else {
             return <Redirect to="/" />
           }
@@ -201,25 +231,30 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
-
-        {/* TODO ROUTES */}
-
         <Route exact path="/todos" render={(props) => {
-          return <TodoList {...props} todos={this.state.todos} />
+          return <TodoList {...props}
+            todos={this.state.todos}
+            deleteTodo={this.deleteTodo} />
         }} />
 
         <Route path="/todos/new" render={(props) => {
-          return <TodoForm />
+          return <TodoForm {...props}
+            addTodo={this.addTodo} />
         }} />
-
-        {/* PROFILE ROUTES */}
-
         <Route exact path="/profile" render={(props) => {
           return <ProfilePage {...props}
+            deleteProfile={this.deleteProfile}
+            profiles={this.state.profiles} />
+        }} />
+        < Route path="/profile/new" render={(props) => {
+          return <ProfileForm {...props}
+            addProfile={this.addProfile} />
+        }} />
+        <Route path="/profile/:profileId(\d+)" render={(props) => {
+          return <ProfileDetails {...props}
             profiles={this.state.profiles} />
         }} />
       </React.Fragment>
     )
   }
-
 }
