@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Modal } from 'semantic-ui-react'
 
 export default class EditMessageForm extends Component {
 
@@ -33,18 +33,13 @@ export default class EditMessageForm extends Component {
     render () {
         return (
         <React.Fragment>
- <Form className="messageForm"> 
+                    <Form className="messageForm"> 
                     <Form.Field>
-                        <label>Message</label>
                         <label htmlFor="messageId"></label>
-                        <label htmlFor="messageTo">Message To:</label>
-                        <input onChange={this.handleFieldChange}
-                            id="messageTo" placeholder={this.state.to} />
                     </Form.Field>
                     <Form.Field>
-                        <label htmlFor="message">Message:</label>
                         <input onChange={this.handleFieldChange}
-                            id="message" placeholder={this.state.message} />
+                            id="message" defaultValue={this.props.message}/>
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
