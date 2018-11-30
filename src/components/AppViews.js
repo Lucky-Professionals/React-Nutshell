@@ -219,9 +219,12 @@ export default class ApplicationViews extends Component {
                 }} />  
                 <Route path="/profile/:profileId(\d+)" render={(props) => {
                       return <ProfileDetails {...props} 
+                      deleteProfile={this.deleteProfile}
                       profiles={this.state.profiles} />
                 }} />      
             </React.Fragment>
         )
     }
 }
+
+

@@ -17,7 +17,6 @@ export default class ProfileForm extends Component {
     }
 
     constructNewProfile = evt => {
-      console.log(this.props)
         evt.preventDefault()
         
             const profiles = {
