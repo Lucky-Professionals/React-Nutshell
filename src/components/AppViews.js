@@ -47,8 +47,6 @@ export default class ApplicationViews extends Component {
     }))
 
     addEvent = (events, item) => {
-      console.log("addEvent Running")
-      console.log("addevent", events, item)
       return DataManager.add("events", item)
         .then(() => DataManager.getAll("events  "))
         .then(events => this.setState({

@@ -24,7 +24,6 @@ constructNewEvent = evt => {
     location: this.state.location
 
   }
-console.log(this.props)
   this.props.addEvent( createEvent).then(() => this.props.history.push("/events"))
 
 }
