@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import "./news.css"
-import NewsForm from './newsForm';
-
+import { Image, Container } from 'semantic-ui-react'
 
 export default class NewsList extends Component {
   render() {
     return (
       <React.Fragment>
-        <NewsForm />
-        {/* <div className="newsButton list">
+
+        <div className="newsButton list">
           <button type="button"
             className="btn btn-success"
             onClick={() => {
@@ -17,14 +16,14 @@ export default class NewsList extends Component {
             }>
             Add New Article
           </button>
-        </div> */}
+        </div>
         <div className="article-list">
           <section className="news">
             {
               this.props.news.map(news =>
                 <div className="eachArticle">
                 <div key={news.id}>
-                  <img className="newsImage" src={news.picLink} />
+                  <Image className="newsImage" src={news.picLink} rounded/>
                 </div>
                 <div className="articleDetails">
                   <h2>{news.name}</h2>

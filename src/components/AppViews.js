@@ -117,8 +117,6 @@ export default class ApplicationViews extends Component {
         this.setState(newState))
   }
 
-
-
   render() {
     return (
       <React.Fragment>
@@ -186,13 +184,13 @@ export default class ApplicationViews extends Component {
           }
         }} />
         <Route exact path="/todos" render={(props) => {
-          return <TodoList {...props} 
+          return <TodoList {...props}
           todos={this.state.todos}
           deleteTodo={this.deleteTodo} />
         }} />
 
         <Route path="/todos/new" render={(props) => {
-          return <TodoForm {...props} 
+          return <TodoForm {...props}
            addTodo={this.addTodo}/>
         }} />
         <Route exact path="/profile" render={(props) => {

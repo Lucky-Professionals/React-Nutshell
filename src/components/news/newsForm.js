@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import "./news.css"
 
+
 export default class NewsForm extends Component {
   // Set initial state
   state = {
@@ -35,9 +36,6 @@ export default class NewsForm extends Component {
     this.props.addNews("news", news).then(() => this.props.history.push("/news"))
 
   }
-
-
-
 
   render() {
     return (
