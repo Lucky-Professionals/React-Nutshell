@@ -8,6 +8,7 @@ import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
+import ProfileDetails from "./profile/profileDetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import MessageForm from "./messages/MessageForm"
@@ -68,6 +69,15 @@ export default class ApplicationViews extends Component {
         .then(profiles => this.setState({
             profiles: profiles
         }))
+
+    deleteProfile = (profiles, item) => {
+         return  DataManager.delete(profiles, item)
+          .then(() => DataManager.getAll("profiles"))
+          .then(profiles => this.setState({
+            profiles: profiles
+        })
+        )
+      }
 
     addTodo = todos => DataManager.add("todos", todos)
         .then(() => DataManager.getAll("todos"))
@@ -200,13 +210,17 @@ export default class ApplicationViews extends Component {
                 }} />
                 <Route exact path="/profile" render={(props) => {
                     return <ProfilePage {...props}
-                    addProfile={this.addProfile}  
+                    deleteProfile={this.deleteProfile}
                     profiles={this.state.profiles} />
                 }} />
                 < Route path="/profile/new" render={(props) => {
                     return <ProfileForm {...props}
                         addProfile={this.addProfile} />
-                }} />        
+                }} />  
+                <Route path="/profile/:profileId(\d+)" render={(props) => {
+                      return <ProfileDetails {...props} 
+                      profiles={this.state.profiles} />
+                }} />      
             </React.Fragment>
         )
     }
