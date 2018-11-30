@@ -1,5 +1,7 @@
 
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 import "./events.css"
 // import EventItem from "../events/EventItem"
 
@@ -8,6 +10,7 @@ export default class EventList extends Component {
   render() {
     return (
       <React.Fragment>
+   {/* <Link className="event-link" to={`/events/addEvent`}>Add Event</Link> */}
         <div className="eventsButton">
           <button type="button"
             className="add-event-btn"
@@ -15,7 +18,7 @@ export default class EventList extends Component {
               this.props.history.push("/events/new")}
             }>
             Add Event
-        </button>
+          </button>
         </div>
         <section className="events list">
           {
@@ -24,13 +27,11 @@ export default class EventList extends Component {
                 {events.name}<br></br>
                 {events.date}<br></br>
                 {events.location}
-              <a href="#foo"
-                onClick={() => this.props.deleteEvent("events", events.id)}
-                className="event-delete-btn">Delete </a>
                 <a href="#foo"
-                onClick={() => this.props.deleteEvent("events", events.id)}
-                className="event-delete-btn">Delete </a>
-                </div>
+                  onClick={() => this.props.deleteEvent(events.id)}
+                  className="event-delete-btn">Delete
+                </a>
+              </div>
             )
           }
         </section>

@@ -24,7 +24,8 @@ constructNewEvent = evt => {
     location: this.state.location
 
   }
-  this.props.addEvent( createEvent).then(() => this.props.history.push("/events"))
+console.log(this.props)
+  this.props.addEvent(createEvent).then(() => this.props.history.push("/events"))
 
 }
 
@@ -40,7 +41,7 @@ constructNewEvent = evt => {
           placeholder="Event Name" />
       </div>
       <div className="event-form-group">
-            <label htmlFor="Date"></label>
+            <label htmlFor="Date">Date</label>
             <input type="date" required
               className="event-form-control"
               onChange={this.handleFieldChange}
