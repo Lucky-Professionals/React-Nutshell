@@ -7,6 +7,7 @@ import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
+import ProfileForm from "./profile/profileForm"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import MessageForm from "./messages/MessageForm"
@@ -62,6 +63,11 @@ export default class ApplicationViews extends Component {
         .then(news => this.setState({
             news: news
         }))
+    addProfile = (profiles, item) => DataManager.add(profiles, item)
+        .then(() => DataManager.getAll("profiles"))
+        .then(profiles => this.setState({
+            profiles: profiles
+        }))
 
     addTodo = todos => DataManager.add("todos", todos)
         .then(() => DataManager.getAll("todos"))
@@ -97,6 +103,10 @@ export default class ApplicationViews extends Component {
         DataManager.getAll("messages")
             .then(allMessages => {
                 newState.messages = allMessages
+            })
+        DataManager.getAll("profiles")
+            .then(allProfiles => {
+                newState.profiles = allProfiles
             })
 
         DataManager.getAll("todos")
@@ -170,15 +180,7 @@ export default class ApplicationViews extends Component {
                         return <Redirect to="/" />
                     }
                 }} />
-                {/* <Route exact path="/messages/new" render={(props) => {
-                    if (this.isAuthenticated()) {
-                        return <MessageForm {...props}
-                            messages={this.state.messages}
-                            addMessage={this.addMessage} />
-                    } else {
-                        return <Redirect to="/" />
-                    }
-                }} /> */}
+            
                 <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
                     if (this.isAuthenticated()) {
                         return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />
@@ -198,8 +200,13 @@ export default class ApplicationViews extends Component {
                 }} />
                 <Route exact path="/profile" render={(props) => {
                     return <ProfilePage {...props}
-                        profiles={this.state.profiles} />
+                    addProfile={this.addProfile}  
+                    profiles={this.state.profiles} />
                 }} />
+                < Route path="/profile/new" render={(props) => {
+                    return <ProfileForm {...props}
+                        addProfile={this.addProfile} />
+                }} />        
             </React.Fragment>
         )
     }
