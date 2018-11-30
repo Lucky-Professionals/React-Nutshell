@@ -19,6 +19,8 @@ import TodoList from './todo/TodoList'
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
 
+  credentials = JSON.parse(localStorage.getItem('credentials'))
+
   state = {
     users: [],
     profiles: [],
@@ -58,7 +60,7 @@ export default class ApplicationViews extends Component {
     }))
 
   addNews = (news, item) => DataManager.add(news, item)
-    .then(() => DataManager.getAll("news"))
+    .then(() => DataManager.getAllByUser("news", this.credentials.id))
     .then(news => this.setState({
       news: news
     }))
@@ -72,7 +74,7 @@ export default class ApplicationViews extends Component {
 
   deleteNews = (news, id) => {
     return DataManager.delete(news, id)
-      .then(() => DataManager.getAll("news"))
+      .then(() => DataManager.getAllByUser("news", this.credentials.id))
       .then(news => this.setState({
         news: news
       })
@@ -104,18 +106,25 @@ export default class ApplicationViews extends Component {
         newState.todos = allTodos
       })
 
+    DataManager.getAll("todos")
+      .then(allTodos => {
+        newState.todos = allTodos
+      })
+
     DataManager.getAll("events")
       .then(allEvents => {
         newState.events = allEvents
       })
 
-    DataManager.getAll("news")
+    DataManager.getAllByUser("news", this.credentials.id)
       .then(allNews => {
         newState.news = allNews
       })
       .then(() =>
         this.setState(newState))
   }
+
+
 
   render() {
     return (
@@ -159,6 +168,7 @@ export default class ApplicationViews extends Component {
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
+              addMessage={this.addMessage}
               users={this.state.users}
               editMessage={this.editMessage}
               deleteMessage={this.deleteMessage}
@@ -167,15 +177,15 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/" />
           }
         }} />
-        <Route exact path="/messages/new" render={(props) => {
-          if (this.isAuthenticated()) {
-            return <MessageForm {...props}
-              messages={this.state.messages}
-              addMessage={this.addMessage} />
-          } else {
-            return <Redirect to="/" />
-          }
-        }} />
+        {/* <Route exact path="/messages/new" render={(props) => {
+                    if (this.isAuthenticated()) {
+                        return <MessageForm {...props}
+                            messages={this.state.messages}
+                            addMessage={this.addMessage} />
+                    } else {
+                        return <Redirect to="/" />
+                    }
+                }} /> */}
         <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
           if (this.isAuthenticated()) {
             return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />
@@ -185,13 +195,13 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props}
-          todos={this.state.todos}
-          deleteTodo={this.deleteTodo} />
+            todos={this.state.todos}
+            deleteTodo={this.deleteTodo} />
         }} />
 
         <Route path="/todos/new" render={(props) => {
           return <TodoForm {...props}
-           addTodo={this.addTodo}/>
+            addTodo={this.addTodo} />
         }} />
         <Route exact path="/profile" render={(props) => {
           return <ProfilePage {...props}
