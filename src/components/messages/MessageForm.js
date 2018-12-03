@@ -24,7 +24,7 @@ export default class MessageForm extends Component {
         const messages = {
             id: this.state.messageId,
             message: this.state.message,
-            date: new Date().toISOString(),
+            date: new Date(),
             userId: credentials.id
         }
         console.log(this.props)
@@ -53,7 +53,7 @@ export default class MessageForm extends Component {
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
-                    <Button onClick={this.newMessage} content='Add Comment' labelPosition='left' icon='edit' primary />
+                    <Button onClick={this.newMessage} content='Add Comment' labelPosition='left' icon='comments outline' primary />
                 </Form>
             </React.Fragment>
         )
