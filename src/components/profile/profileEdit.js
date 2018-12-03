@@ -8,7 +8,7 @@ export default class ProfileEdit extends Component {
     favFood: "",
     favColor: "",
     quote: "",
-    id: null,
+    id: null
   }
 
   handleFieldChange = evt => {
@@ -18,7 +18,7 @@ export default class ProfileEdit extends Component {
   }
 
   componentDidMount() {
-    const editProfile = this.props.profiles.find(a => a.id === parseInt(this.props.match.params.profilesId))
+    const editProfile = this.props.profiles.find(a => a.id === parseInt(this.props.match.params.profileId))
     this.setState({ ...editProfile })
   }
 

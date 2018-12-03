@@ -35,14 +35,16 @@ export default class ProfilePage extends Component {
 
                   </section>
                   <section>
-                    <a href=" "
+                    <button
                      onClick={() => this.props.deleteProfile("profiles", profiles.id)}
-                     className="deleteBtn">Remove</a>
+                     className="deleteBtn">Remove
+                     </button>
                   </section>
                   <section>
-                    <a href=" "
+                    <button
                      onClick={() => this.props.history.push(`/profile/edit/${profiles.id}`)}
-                     className="editBtn">Edit</a>
+                     className="editBtn">Edit
+                     </button>
                   </section>
                 </Card>
               </div>

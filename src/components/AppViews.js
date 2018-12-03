@@ -269,11 +269,14 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/profile/edit/:profileId(\d+)" render={(props) => {
           if (this.isAuthenticated()) {
-            return <ProfileEdit {...props} editProfile={this.editProfile} profiles={this.state.profiles} />
+            return <ProfileEdit {...props} 
+            editProfile={this.editProfile} 
+            profiles={this.state.profiles} />
           } else {
             return <Redirect to="/login" />
           }
         }} />
+        
       </React.Fragment>
     )
   }
