@@ -1,8 +1,7 @@
 .newsButton {
   display: flex;
-  margin: 100px 0 10px 30px;
+  margin: 20px 0 10px 30px;
   justify-content: center;
-  margin-bottom: 30px;
 }
 
 .news {
@@ -28,12 +27,15 @@
   /* justify-content: center; */
   border-radius: 15px;
   margin: 20px 10px;
+  background-color: linen;
 }
 
 .article-Details {
   margin-left: 2rem;
   margin-top: 100px;
   line-height: 2;
+  max-width: 50%;
+  word-wrap: break-word;
 }
 
 .card {
@@ -49,7 +51,7 @@
 
 .card-link {
   margin: 12px 0 0 0;
-  font-size: 0.7em;
+  font-size: 2em;
 }
 
 .article-list {
