@@ -1,8 +1,7 @@
 .newsButton {
   display: flex;
-  margin: 100px 0 10px 30px;
+  margin: 20px 0 10px 30px;
   justify-content: center;
-  margin-bottom: 30px;
 }
 
 .news {
@@ -28,6 +27,7 @@
   /* justify-content: center; */
   border-radius: 15px;
   margin: 20px 10px;
+  background-color: linen;
 }
 
 .article-Details {
