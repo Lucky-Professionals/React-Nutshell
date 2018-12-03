@@ -12,7 +12,8 @@ export default class ProfilePage extends Component {
         <Header as='h2' icon textAlign='center'>
           <Icon name='user circle' />
           <Header.Content>User Profiles</Header.Content>
-        </Header>        <div className="profileBtn">
+        </Header>        
+        <div className="profileBtn">
           <button type="button"
             className="btn btn-success"
             onClick={() => {
