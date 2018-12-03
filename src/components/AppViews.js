@@ -254,15 +254,6 @@ export default class ApplicationViews extends Component {
           }
         }} />
 
-        {/* <Route path="/todos" render={(props) => {
-          return <TodoForm {...props}
-            addTodo={this.addTodo}
-            editTodo={this.editTodo}
-            todos={this.state.todos}
-
-          />
-        }} /> */}
-
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props}
             todos={this.state.todos}

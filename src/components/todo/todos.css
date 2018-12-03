@@ -1,35 +1,24 @@
-.todoButton {
-  display: flex;
-  justify-content: space-evenly;
+.container {
+  margin: 20px;
+  width: 800px;
 }
+
 
 .todos {
+  background: rgba(220, 220, 220, 0.25)	;
   display: flex;
-  justify-content: space-evenly;
+  margin: 20px;
+  padding: 5px;
+  border: 1px solid silver;
+  border-radius: 10px;
+  align-content: space-between;
+  width: 800px;
+  box-shadow: 10px 5px 5px silver;
 }
 
-.container {
- display: flex;
- flex-direction: column;
+.space {
+  margin: 10px;
 }
-
-.border {
-  border:1px solid black;
+.text {
+  width: 450px;
 }
-
-.card {
-  width: auto;
-}
-
-.card-title {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-}
-
-.card-link {
-  margin: 12px 0 0 0;
-  font-size: 0.7em;
-}
-
