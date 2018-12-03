@@ -75,4 +75,5 @@ export default Object.create(null, {
         .then(result => result.json())
     }
   }
+  
 })

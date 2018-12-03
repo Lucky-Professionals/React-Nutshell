@@ -1,4 +1,3 @@
-
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
@@ -8,6 +7,7 @@ import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
+import ProfileEdit from "./profile/profileEdit"
 import ProfileDetails from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
@@ -17,11 +17,14 @@ import MessageList from "./messages/MessageList"
 import EditMessageForm from "./messages/EditMessageForm"
 import TodoForm from './todo/TodoForm'
 import TodoList from './todo/TodoList'
+import TodoEdit from './todo/TodoEdit'
 
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
+  // call login here
   credentials = JSON.parse(localStorage.getItem('credentials'))
+  credentials = {id:1}
   state = {
     users: [],
     profiles: [],
@@ -83,7 +86,15 @@ export default class ApplicationViews extends Component {
     .then(news => this.setState({
       news: news
     }))
-  addProfile = (profiles, item) => DataManager.add(profiles, item)
+  addProfile = (profiles, item) => {
+     return   DataManager.add(profiles, item)
+    .then(() => DataManager.getAll("profiles"))
+    .then(profiles => this.setState({
+      profiles: profiles
+    })
+    )
+  } 
+  editProfile = (id, profiles) => DataManager.edit("profiles", id, profiles)
     .then(() => DataManager.getAll("profiles"))
     .then(profiles => this.setState({
       profiles: profiles
@@ -104,6 +115,12 @@ export default class ApplicationViews extends Component {
       todos: todos
     })
     )
+
+  editTodo = (id, todos) => DataManager.edit("todos", id, todos)
+    .then(() => DataManager.getAll("todos"))
+    .then(todos => this.setState({
+      todos: todos
+    }))
 
   deleteNews = (news, id) => {
     return DataManager.delete(news, id)
@@ -231,30 +248,64 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        {/* <Route path="/todos" render={(props) => {
+          return <TodoForm {...props}
+            addTodo={this.addTodo}
+            editTodo={this.editTodo}
+            todos={this.state.todos}
+
+          />
+        }} /> */}
+
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props}
             todos={this.state.todos}
-            deleteTodo={this.deleteTodo} />
+            deleteTodo={this.deleteTodo}
+            editTodo={this.editTodo}
+            addTodo={this.addTodo}
+          />
         }} />
 
-        <Route path="/todos/new" render={(props) => {
-          return <TodoForm {...props}
-            addTodo={this.addTodo} />
+
+
+        <Route exact path="/todos/edit/:todoId(\d+)" render={(props) => {
+            return <TodoEdit {...props}
+              editTodo={this.editTodo}
+              todos={this.state.todos}
+            />
         }} />
+
+
+
         <Route exact path="/profile" render={(props) => {
+         if (this.isAuthenticated()) { 
           return <ProfilePage {...props}
             deleteProfile={this.deleteProfile}
-            profiles={this.state.profiles} />
+            profiles={this.state.profiles}
+            editProfile={this.editProfile}
+         /> 
+        } else {
+          return <Redirect to="/login" />
+        }
         }} />
         < Route path="/profile/new" render={(props) => {
           return <ProfileForm {...props}
             addProfile={this.addProfile} />
         }} />
-        <Route path="/profile/:profileId(\d+)" render={(props) => {
-          return <ProfileDetails {...props}
+        <Route exact path="/profile/edit/:profileId(\d+)" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <ProfileEdit {...props} 
+            editProfile={this.editProfile} 
             profiles={this.state.profiles} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
+        
       </React.Fragment>
     )
   }
 }
+
+

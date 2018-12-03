@@ -21,22 +21,30 @@ export default class ProfilePage extends Component {
         <section>
           {
             this.props.profiles.map(profiles =>
-              <div key={profiles.id} className="list">
+              <div key={profiles.id} className="cards list">
                 <Card>
                   <Image src={rebel2} />
                   <Card.Description>
                     <Card.Header>{profiles.name}</Card.Header>
                     <Card.Meta>{profiles.location}</Card.Meta>
+                    <br></br>
                     <Card.Description>{profiles.quote}</Card.Description>
                   </Card.Description>
                   <br></br>
                   <section>
-                    EDIT
-                    <br></br>
-                  {/* <Link className="nav-link" to={`/profile/${profiles.id}`}>Learn More</Link> */}
-                  <a href=" "
+
+                  </section>
+                  <section>
+                    <button
                      onClick={() => this.props.deleteProfile("profiles", profiles.id)}
-                     className="card-link">Remove</a>
+                     className="deleteBtn">Remove
+                     </button>
+                  </section>
+                  <section>
+                    <button
+                     onClick={() => this.props.history.push(`/profile/edit/${profiles.id}`)}
+                     className="editBtn">Edit
+                     </button>
                   </section>
                 </Card>
               </div>
@@ -48,5 +56,7 @@ export default class ProfilePage extends Component {
     )
   }
 }
+
+
 
 
