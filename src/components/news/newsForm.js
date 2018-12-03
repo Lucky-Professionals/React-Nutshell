@@ -1,7 +1,5 @@
 import React, { Component } from "react"
 import "./news.css"
-// import { createCredentials } from "crypto";
-
 
 export default class NewsForm extends Component {
   // Set initial state
@@ -69,7 +67,7 @@ export default class NewsForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="url">URL for article</label>
-            <input type="text" required
+            <input type="url" required
               className="form-control"
               onChange={this.handleFieldChange}
               id="url"

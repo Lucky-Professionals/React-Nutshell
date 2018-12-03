@@ -24,7 +24,7 @@ export default class ApplicationViews extends Component {
   state = {
     users: [],
     profiles: [],
-    news: [],
+    // news: [],
     events: [],
     messages: [],
     todos: [],
@@ -129,7 +129,7 @@ export default class ApplicationViews extends Component {
         newState.events = allEvents
       })
 
-    DataManager.getAllByUser("news", this.credentials.id)
+    DataManager.getAll("news")
       .then(allNews => {
         newState.news = allNews
       })

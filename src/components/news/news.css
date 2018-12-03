@@ -34,6 +34,8 @@
   margin-left: 2rem;
   margin-top: 100px;
   line-height: 2;
+  max-width: 50%;
+  word-wrap: break-word;
 }
 
 .card {
@@ -49,7 +51,7 @@
 
 .card-link {
   margin: 12px 0 0 0;
-  font-size: 0.7em;
+  font-size: 2em;
 }
 
 .article-list {
