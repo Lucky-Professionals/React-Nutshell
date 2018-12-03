@@ -24,7 +24,7 @@ export default class MessageForm extends Component {
         const messages = {
             id: this.state.messageId,
             message: this.state.message,
-            date: new Date().toISOString(),
+            date: new Date(),
             userId: credentials.id
         }
         console.log(this.props)
