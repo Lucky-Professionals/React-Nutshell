@@ -35,7 +35,7 @@ export default class ApplicationViews extends Component {
     todos: [],
     isLoaded: false
   }
-
+// GUESS WHAT
   addUser = users => DataManager.add("users", users)
     .then(() => DataManager.getAll("users"))
     .then(users => this.setState({
@@ -245,6 +245,7 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/" />
           }
         }} />
+        {/* YEEEEEEEEEEEEEEEEEEEHEEEEEEEEEEEEEEEEEE */}
         <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
           if (this.isAuthenticated()) {
             return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />

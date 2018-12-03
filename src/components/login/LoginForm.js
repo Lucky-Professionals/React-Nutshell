@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import DataManager from '../../module/DataManager'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 export default class Login extends Component {
 
@@ -34,6 +35,7 @@ export default class Login extends Component {
     }
 
     render() {
+        
         return (
             <div className="forms list">
                 <div className="loginForm">
