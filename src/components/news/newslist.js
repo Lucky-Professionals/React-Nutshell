@@ -10,6 +10,15 @@ export default class NewsList extends Component {
     news: []
   }
 
+  deleteNews = (news, id) => {
+    return DataManager.delete(news, id)
+      .then(() => DataManager.getAllByUser("news", this.credentials.id))
+      .then(news => this.setState({
+        news: news
+      })
+      )
+  }
+
   componentDidMount() {
     const newState = {}
     DataManager.getAllByUser("news", this.credentials.id)
@@ -44,8 +53,9 @@ export default class NewsList extends Component {
                     <h2>{news.name}</h2>
                     <h3>{news.synopsis}</h3><br />
                     <a href={news.url}>{news.url}</a><br />
+                    {news.date}<br />
                     <a href="#foo"
-                      onClick={() => this.props.deleteNews("news", news.id)}
+                      onClick={() => this.deleteNews("news", news.id)}
                       className="btn btn-danger">Delete </a>
                   </div>
                 </div>

@@ -25,7 +25,7 @@ export default class ApplicationViews extends Component {
   state = {
     users: [],
     profiles: [],
-    // news: [],
+    news: [],
     events: [],
     messages: [],
     todos: [],
@@ -105,14 +105,6 @@ export default class ApplicationViews extends Component {
     })
     )
 
-  deleteNews = (news, id) => {
-    return DataManager.delete(news, id)
-      .then(() => DataManager.getAllByUser("news", this.credentials.id))
-      .then(news => this.setState({
-        news: news
-      })
-      )
-  }
 
   deleteTodo = id => DataManager.delete("todos", id)
     .then(() => DataManager.getAll("todos"))
@@ -196,7 +188,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
-            return <NewsList {...props} deleteNews={this.deleteNews}
+            return <NewsList {...props}
               news={this.state.news} />
           }
           else {

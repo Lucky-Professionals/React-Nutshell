@@ -7,7 +7,8 @@ export default class NewsForm extends Component {
     name: "",
     synopsis: "",
     picLink: "",
-    url: ""
+    url: "",
+    date: ""
   }
 
   // Update state whenever an input field is edited
@@ -29,7 +30,8 @@ export default class NewsForm extends Component {
       synopsis: this.state.synopsis,
       picLink: this.state.picLink,
       url: this.state.url,
-      userId: credentials.id
+      userId: credentials.id,
+      date: new Date().toISOString()
     }
 
     // Create the news and redirect user to news list
