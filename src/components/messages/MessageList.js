@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import MessageForm from './MessageForm'
-import EditMessageForm from './EditMessageForm'
+import EditMessageModal from './EditMessageModal'
 import './Message.css'
 import { Button, Comment, Form, Modal, Header, Icon } from 'semantic-ui-react'
 
 export default class MessageList extends Component {
+   
     findUserName = messages => {
         return this.props.users.find(user => user.id === messages.userId).username
     }
@@ -31,25 +32,12 @@ export default class MessageList extends Component {
                                         <Comment.Actions>
                                             <Comment.Action
                                                 onClick={() => this.props.deleteMessage(messages.id)
-                                                .then(() => this.props.history.push("/messages"))}
+                                                    .then(() => this.props.history.push("/messages"))}
                                             >delete
                                         </Comment.Action>
                                         </Comment.Actions>
                                         <Comment.Actions>
-                                            <Modal trigger={<Button>edit</Button>} closeIcon>
-                                                <Header icon='archive' content='Archive Old Messages' />
-                                                <Modal.Content>
-                                                    <EditMessageForm {...this.props} message={messages.message} />
-                                                </Modal.Content>
-                                                <Modal.Actions>
-                                                    <Button color='red'>
-                                                    <Icon name='remove' /> No
-                                            </Button>
-                                                    <Button color='green' type='submit' >
-                                                    <Icon name='checkmark'/> Yes
-                                            </Button>
-                                                </Modal.Actions>
-                                            </Modal>
+                                            <EditMessageModal {...this.props} messageId={messages.id} message={messages}  />
                                         </Comment.Actions>
 
                                     </Comment.Content>

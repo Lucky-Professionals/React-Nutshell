@@ -5,7 +5,8 @@
 .ui.modal {
     width: 60%;
     height: 40%;
-    margin: auto;
-    align-content: center;
+    margin: 50px;
+    margin-left: 50px;
     top: 100px;
 }
+

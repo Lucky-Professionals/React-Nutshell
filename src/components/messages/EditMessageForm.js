@@ -4,18 +4,19 @@ import { Button, Form, Modal } from 'semantic-ui-react'
 export default class EditMessageForm extends Component {
 
     state = {
-
+        // message: this.props.message
     }
 
     handleFieldChange = evt => {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
+        
     }
 
     componentDidMount() {
-        const message = this.props.messages.find(a => a.id === parseInt(this.props.match.params.messageId))
-        this.setState(message)
+        // const message = this.props.messages.find(a => a.id === this.props.messageId)
+        this.setState(this.props.message)
     }
 
     newMessage = (evt) => {
@@ -24,9 +25,9 @@ export default class EditMessageForm extends Component {
         let editedMessage = {
             message: this.state.message,
         }
-        this.props.editMessage(this.state.id, editedMessage)
+        this.props.editMessage(this.props.messageId, editedMessage)
         .then(() => {
-            this.props.history.push("/messages")
+            this.props.close()
         })
     }
 
@@ -39,7 +40,7 @@ export default class EditMessageForm extends Component {
                     </Form.Field>
                     <Form.Field>
                         <input onChange={this.handleFieldChange}
-                            id="message" defaultValue={this.props.message}/>
+                            id="message" defaultValue={this.props.message.message}/>
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
