@@ -10,7 +10,7 @@ export default class EventList extends Component {
       <React.Fragment>
           <div className="eventsButton">
             <button type="button"
-              className="add-event-btn"
+              className="ui button"
               onClick={() => {
                 this.props.history.push("/events/new")
               }
@@ -18,21 +18,23 @@ export default class EventList extends Component {
               Add Event
           </button>
           </div>
-          <section className="events list">
+          <section >
             {
               this.props.events.map(events =>
-                <div key={events.id}>
-                  {events.name}<br></br>
-                  {events.date}<br></br>
-                  {events.location}
-                  <a href="#foo"
+                <div className="article list" key={events.id}>
+                <div className="ui card">
+                  <h4 className="header">{events.name}</h4><br></br>
+                  <div className="ui small feed">{events.date}<br></br>
+                  {events.location}</div><br></br>
+                  <button
                     onClick={() => this.props.deleteEvent(events.id)}
-                    className="event-delete-btn">Delete
-                </a>
+                    className="ui bottom attached button">Delete
+                </button>
                   <button
                     onClick={() => this.props.history.push(`/events/edit/${events.id}`)}
-                    className="edit-event-btn">Edit
+                    className="ui bottom attached button">Edit
                 </button>
+                    </div>
 
                 </div>
               )
