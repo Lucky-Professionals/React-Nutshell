@@ -9,7 +9,6 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
 import ProfileEdit from "./profile/profileEdit"
-import ProfileDetails from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import EditEventForm from "./events/EditEventForm"
@@ -173,13 +172,12 @@ export default class ApplicationViews extends Component {
     return (
       <React.Fragment>
 
-        <Route exact path="/login" component={Login} />
         <Route exact path="/register" render={(props) => {
           return <Register {...props}
-            addUser={this.addUser}
-            users={this.state.users} />
-
+          addUser={this.addUser}
+          users={this.state.users} />
         }} />
+        <Route exact path="/login" component={Login} />
 
         {/* EVENTS ROUTES */}
 
