@@ -12,6 +12,7 @@ import ProfileEdit from "./profile/profileEdit"
 import ProfileDetails from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
+import EditEventForm from "./events/EditEventForm"
 import MessageForm from "./messages/MessageForm"
 import MessageList from "./messages/MessageList"
 import EditMessageForm from "./messages/EditMessageForm"
@@ -40,6 +41,8 @@ export default class ApplicationViews extends Component {
       users: users
     }))
 
+// MESSAGE FUNCTIONS
+
   addMessage = messages => DataManager.add("messages", messages)
     .then(() => DataManager.getAll("messages"))
     .then(messages => this.setState({
@@ -56,11 +59,27 @@ export default class ApplicationViews extends Component {
     .then(messages => this.setState({
       messages: messages
     }))
+
+    // EVENT FUNCTIONS
   addEvent = events => DataManager.add("events", events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
       events: events
     }))
+
+  deleteEvent = id => DataManager.delete("events", id)
+    .then(() => DataManager.getAll("events"))
+    .then(events => this.setState({
+      events: events
+    }))
+  editEvent = (id, events) => DataManager.edit("events", id, events)
+    .then(() => DataManager.getAll("events"))
+    .then(events => this.setState({
+      events: events
+    }))
+
+
+    // NEWS FUNCTIONS
 
   addNews = (news, item) => DataManager.add(news, item)
     .then(() => DataManager.getAllByUser("news", this.credentials.id))
@@ -125,6 +144,7 @@ export default class ApplicationViews extends Component {
       .then(allMessages => {
         newState.messages = allMessages
       })
+
     DataManager.getAll("profiles")
       .then(allProfiles => {
         newState.profiles = allProfiles
@@ -149,7 +169,6 @@ export default class ApplicationViews extends Component {
   }
 
 
-
   render() {
     return (
       <React.Fragment>
@@ -161,15 +180,30 @@ export default class ApplicationViews extends Component {
             users={this.state.users} />
 
         }} />
+
+        {/* EVENTS ROUTES */}
+
         <Route exact path="/events" render={(props) => {
           return <EventList {...props}
-            events={this.state.events} />
+            events={this.state.events}
+            deleteEvent={this.deleteEvent}
+            editEvent={this.editEvent} />
         }} />
 
         < Route path="/events/new" render={(props) => {
           return <EventForm {...props}
             addEvent={this.addEvent} />
         }} />
+           <Route exact path="/events/edit/:eventsId(\d+)" render={(props) => {
+            return <EditEventForm {...props}
+            editEvent={this.editEvent}
+            events={this.state.events}
+            addEvent={this.addEvent} />
+
+        }} />
+
+
+        {/* NEWS ROUTES */}
 
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
@@ -201,7 +235,6 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/" />
           }
         }} />
-
         <Route exact path="/messages/edit/:messageId(\d+)" render={(props) => {
           if (this.isAuthenticated()) {
             return <EditMessageForm {...props} editMessage={this.editMessage} messages={this.state.messages} />

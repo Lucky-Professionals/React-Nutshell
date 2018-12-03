@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export default class EventForm extends Component {
   state = {
+    id: "",
     name: "",
     date: "",
     location: ""
@@ -18,14 +19,15 @@ export default class EventForm extends Component {
 constructNewEvent = evt => {
   evt.preventDefault()
 
-  const events = {
+  const createEvent = {
+    id: this.state.id,
     name: this.state.name,
     date: this.state.date,
     location: this.state.location
 
   }
-
-  this.props.addEvent("events", events).then(() => this.props.history.push("/events"))
+console.log(this.props)
+  this.props.addEvent(createEvent).then(() => this.props.history.push("/events"))
 
 }
 
@@ -37,11 +39,11 @@ constructNewEvent = evt => {
         <input type="text" required
           className="event-form-control"
           onChange={this.handleFieldChange}
-          id="event-name"
+          id="name"
           placeholder="Event Name" />
       </div>
       <div className="event-form-group">
-            <label htmlFor="Date"></label>
+            <label htmlFor="Date">Date</label>
             <input type="date" required
               className="event-form-control"
               onChange={this.handleFieldChange}
@@ -53,7 +55,7 @@ constructNewEvent = evt => {
             <input type="text" required
               className="event-form-control"
               onChange={this.handleFieldChange}
-              id="event-location"
+              id="location"
               placeholder="Event Location" />
           </div>
           <button type="submit" onClick={this.constructNewEvent} className="save-event-btn">Save</button>
