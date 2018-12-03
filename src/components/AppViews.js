@@ -4,6 +4,7 @@ import DataManager from '../module/DataManager'
 import Login from "./login/LoginForm"
 import Register from "./login/RegisterForm"
 import NewsList from "./news/newslist"
+import NewsEdit from './news/NewsEdit'
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
@@ -23,7 +24,7 @@ export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
   // call login here
   credentials = JSON.parse(localStorage.getItem('credentials'))
-  credentials = {id:1}
+  credentials = { id: 1 }
   state = {
     users: [],
     profiles: [],
@@ -40,7 +41,7 @@ export default class ApplicationViews extends Component {
       users: users
     }))
 
-// MESSAGE FUNCTIONS
+  // MESSAGE FUNCTIONS
 
   addMessage = messages => DataManager.add("messages", messages)
     .then(() => DataManager.getAll("messages"))
@@ -59,7 +60,7 @@ export default class ApplicationViews extends Component {
       messages: messages
     }))
 
-    // EVENT FUNCTIONS
+  // EVENT FUNCTIONS
   addEvent = events => DataManager.add("events", events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
@@ -78,21 +79,27 @@ export default class ApplicationViews extends Component {
     }))
 
 
-    // NEWS FUNCTIONS
+  // NEWS FUNCTIONS
 
   addNews = (news, item) => DataManager.add(news, item)
     .then(() => DataManager.getAllByUser("news", this.credentials.id))
     .then(news => this.setState({
       news: news
     }))
+  editNews = (id, news) => DataManager.edit("news", id, news)
+    .then(() => DataManager.getAll("news"))
+    .then(news => this.setState({
+      news: news
+    }))
+
   addProfile = (profiles, item) => {
-     return   DataManager.add(profiles, item)
-    .then(() => DataManager.getAll("profiles"))
-    .then(profiles => this.setState({
-      profiles: profiles
-    })
-    )
-  } 
+    return DataManager.add(profiles, item)
+      .then(() => DataManager.getAll("profiles"))
+      .then(profiles => this.setState({
+        profiles: profiles
+      })
+      )
+  }
   editProfile = (id, profiles) => DataManager.edit("profiles", id, profiles)
     .then(() => DataManager.getAll("profiles"))
     .then(profiles => this.setState({
@@ -120,15 +127,6 @@ export default class ApplicationViews extends Component {
     .then(todos => this.setState({
       todos: todos
     }))
-
-  deleteNews = (news, id) => {
-    return DataManager.delete(news, id)
-      .then(() => DataManager.getAllByUser("news", this.credentials.id))
-      .then(news => this.setState({
-        news: news
-      })
-      )
-  }
 
   deleteTodo = id => DataManager.delete("todos", id)
     .then(() => DataManager.getAll("todos"))
@@ -165,7 +163,7 @@ export default class ApplicationViews extends Component {
         newState.events = allEvents
       })
 
-    DataManager.getAllByUser("news", this.credentials.id)
+    DataManager.getAll("news")
       .then(allNews => {
         newState.news = allNews
       })
@@ -198,8 +196,8 @@ export default class ApplicationViews extends Component {
           return <EventForm {...props}
             addEvent={this.addEvent} />
         }} />
-           <Route exact path="/events/edit/:eventsId(\d+)" render={(props) => {
-            return <EditEventForm {...props}
+        <Route exact path="/events/edit/:eventsId(\d+)" render={(props) => {
+          return <EditEventForm {...props}
             editEvent={this.editEvent}
             events={this.state.events}
             addEvent={this.addEvent} />
@@ -211,7 +209,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
-            return <NewsList {...props} deleteNews={this.deleteNews}
+            return <NewsList {...props}
               news={this.state.news} />
           }
           else {
@@ -226,6 +224,12 @@ export default class ApplicationViews extends Component {
           else {
             return <Redirect to="/login" />
           }
+        }} />
+        <Route exact path="/news/edit/:newsId(\d+)" render={(props) => {
+          return <NewsEdit {...props}
+            editNews={this.editNews}
+            news={this.state.news}
+          />
         }} />
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
@@ -260,24 +264,24 @@ export default class ApplicationViews extends Component {
 
 
         <Route exact path="/todos/edit/:todoId(\d+)" render={(props) => {
-            return <TodoEdit {...props}
-              editTodo={this.editTodo}
-              todos={this.state.todos}
-            />
+          return <TodoEdit {...props}
+            editTodo={this.editTodo}
+            todos={this.state.todos}
+          />
         }} />
 
 
 
         <Route exact path="/profile" render={(props) => {
-         if (this.isAuthenticated()) { 
-          return <ProfilePage {...props}
-            deleteProfile={this.deleteProfile}
-            profiles={this.state.profiles}
-            editProfile={this.editProfile}
-         /> 
-        } else {
-          return <Redirect to="/login" />
-        }
+          if (this.isAuthenticated()) {
+            return <ProfilePage {...props}
+              deleteProfile={this.deleteProfile}
+              profiles={this.state.profiles}
+              editProfile={this.editProfile}
+            />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         < Route path="/profile/new" render={(props) => {
           return <ProfileForm {...props}
@@ -285,14 +289,14 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/profile/edit/:profileId(\d+)" render={(props) => {
           if (this.isAuthenticated()) {
-            return <ProfileEdit {...props} 
-            editProfile={this.editProfile} 
-            profiles={this.state.profiles} />
+            return <ProfileEdit {...props}
+              editProfile={this.editProfile}
+              profiles={this.state.profiles} />
           } else {
             return <Redirect to="/login" />
           }
         }} />
-        
+
       </React.Fragment>
     )
   }
