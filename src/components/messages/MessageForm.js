@@ -7,7 +7,6 @@ export default class MessageForm extends Component {
 
     state = {
         messageId: "",
-        messageTo: "",
         message: "",
         date: ""
 
@@ -24,7 +23,6 @@ export default class MessageForm extends Component {
         const credentials = JSON.parse(localStorage.getItem('credentials'))
         const messages = {
             id: this.state.messageId,
-            to: this.state.messageTo,
             message: this.state.message,
             date: new Date().toISOString(),
             userId: credentials.id
@@ -33,7 +31,6 @@ export default class MessageForm extends Component {
         this.props.addMessage(messages)
         this.setState({
             messageId: "",
-            messageTo: "",
             message: "",
             date: ""
         })
@@ -48,23 +45,19 @@ export default class MessageForm extends Component {
             <React.Fragment>
                 <Form className="messageForm">
                     <Form.Field>
-                        <label>Message</label>
                         <label htmlFor="messageId"></label>
-                        <label htmlFor="messageTo">Message To:</label>
-                        <input onChange={this.handleFieldChange}
-                            id="messageTo" placeholder='Message To' value={this.state.messageTo}/>
                     </Form.Field>
                     <Form.Field>
-                        <label htmlFor="message">Message:</label>
                         <input onChange={this.handleFieldChange}
                             id="message" value={this.state.message}/>
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
-                    <Button type='submit' onClick={this.newMessage}>Send</Button>
+                    <Button onClick={this.newMessage} content='Add Comment' labelPosition='left' icon='edit' primary />
                 </Form>
             </React.Fragment>
         )
     }
 }
+
 
