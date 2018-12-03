@@ -13,6 +13,10 @@
  flex-direction: column;
 }
 
+.border {
+  border:1px solid black;
+}
+
 .card {
   width: auto;
 }

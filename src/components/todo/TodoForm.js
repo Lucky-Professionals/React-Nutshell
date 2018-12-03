@@ -20,11 +20,18 @@ export default class TodoForm extends Component {
     evt.preventDefault()
       const todo = {
         text: this.state.text,
-        dueDate: this.state.dueDate
+        dueDate: this.state.dueDate,
+        completed: false
       }
+    
       // Create the task and redirect user to Todo list
-      this.props.addTodo(todo).then(() => this.props.history.push("/todos"))
-    }
+      this.props.addTodo(todo)    
+      .then(() => {
+        this.setState({text: "", dueDate: ""})
+      } 
+   )
+      
+  }
 
   render() {
     return (
@@ -36,6 +43,7 @@ export default class TodoForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="text"
+              value={this.state.text}
               placeholder="Add a task..." />
           </div>
 
@@ -44,10 +52,13 @@ export default class TodoForm extends Component {
             <input type="date"  required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="dueDate"  />
+              id="dueDate"
+              value={this.state.dueDate}
+              />
           </div>
           <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Submit</button>
         </form>
+        
       </React.Fragment>
     )
   }

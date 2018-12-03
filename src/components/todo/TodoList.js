@@ -4,22 +4,29 @@ import TodoForm from './TodoForm';
 import "./todos.css"
 
 class TodoList extends Component {
+  makeCompletedTodo = (id) => {
+    const completedTodo = {
+      completed: true
+    }
+    this.props.editTodo(id, completedTodo)
+  }
   render() {
+    
+    const uncompletedTodos = this.props.todos.filter(todos =>
+      todos.completed=== false) || {}
+
+
     return (
       <React.Fragment>
-
-        {/* add button */}
-
-        <TodoForm className="form" />
-
+        <TodoForm {...this.props}/>
         {/* individual list of tasks */}
         <section className="todos list">
           {
-            this.props.todos.map(todos =>
+            uncompletedTodos.map(todos =>
               <div key={todos.id} className="card">
                 <div className="container">
                   <div className="card-title">
-                    <Button color="blue" animated>
+                    <Button color="blue" onClick={() => this.makeCompletedTodo(todos.id)} className="card-link" animated >
                       <Button.Content visible><Icon name='check' /> 
                       </Button.Content>
                       <Button.Content hidden>
@@ -42,8 +49,6 @@ class TodoList extends Component {
                         onClick={() => this.props.deleteTodo(todos.id)} className="card-link">
                         >Delete</Button>
                     </Button.Group>
-
-                    {/* <a href="#" onClick={() => this.props.deleteTodo(todos.id)} className="card-link">Delete</a> */}
                   </div>
                 </div>
               </div>
@@ -56,3 +61,4 @@ class TodoList extends Component {
 }
 
 export default TodoList
+

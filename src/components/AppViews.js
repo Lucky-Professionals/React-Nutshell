@@ -203,20 +203,26 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        {/* <Route path="/todos" render={(props) => {
+          return <TodoForm {...props}
+            addTodo={this.addTodo}
+            editTodo={this.editTodo}
+            todos={this.state.todos}
+
+          />
+        }} /> */}
+
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props}
             todos={this.state.todos}
             deleteTodo={this.deleteTodo}
             editTodo={this.editTodo}
-            />
+            addTodo={this.addTodo}
+          />
         }} />
 
-        <Route path="/todos/new" render={(props) => {
-          return <TodoForm {...props}
-            addTodo={this.addTodo}
-            editTodo={this.editTodo}
-            />
-        }} />
+
 
         <Route exact path="/todos/edit/:todoId(\d+)" render={(props) => {
             return <TodoEdit {...props}
