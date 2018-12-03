@@ -1,4 +1,3 @@
-
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 import DataManager from '../module/DataManager'
@@ -18,6 +17,7 @@ import MessageList from "./messages/MessageList"
 import EditMessageForm from "./messages/EditMessageForm"
 import TodoForm from './todo/TodoForm'
 import TodoList from './todo/TodoList'
+import TodoEdit from './todo/TodoEdit'
 
 
 export default class ApplicationViews extends Component {
@@ -115,6 +115,12 @@ export default class ApplicationViews extends Component {
       todos: todos
     })
     )
+
+  editTodo = (id, todos) => DataManager.edit("todos", id, todos)
+    .then(() => DataManager.getAll("todos"))
+    .then(todos => this.setState({
+      todos: todos
+    }))
 
   deleteNews = (news, id) => {
     return DataManager.delete(news, id)
@@ -243,16 +249,36 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+
+        {/* <Route path="/todos" render={(props) => {
+          return <TodoForm {...props}
+            addTodo={this.addTodo}
+            editTodo={this.editTodo}
+            todos={this.state.todos}
+
+          />
+        }} /> */}
+
         <Route exact path="/todos" render={(props) => {
           return <TodoList {...props}
             todos={this.state.todos}
-            deleteTodo={this.deleteTodo} />
+            deleteTodo={this.deleteTodo}
+            editTodo={this.editTodo}
+            addTodo={this.addTodo}
+          />
         }} />
 
-        <Route path="/todos/new" render={(props) => {
-          return <TodoForm {...props}
-            addTodo={this.addTodo} />
+
+
+        <Route exact path="/todos/edit/:todoId(\d+)" render={(props) => {
+            return <TodoEdit {...props}
+              editTodo={this.editTodo}
+              todos={this.state.todos}
+            />
         }} />
+
+
+
         <Route exact path="/profile" render={(props) => {
          if (this.isAuthenticated()) { 
           return <ProfilePage {...props}
