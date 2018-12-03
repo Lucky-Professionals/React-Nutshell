@@ -20,21 +20,21 @@ class TodoList extends Component {
       <React.Fragment>
         <TodoForm {...this.props}/>
         {/* individual list of tasks */}
-        <section className="todos list">
+        <section className="container">
           {
             uncompletedTodos.map(todos =>
-              <div key={todos.id} className="card">
+              <div key={todos.id} >
                 <div className="container">
-                  <div className="card-title">
-                    <Button color="blue" onClick={() => this.makeCompletedTodo(todos.id)} className="card-link" animated >
+                  <div className="todos">
+                    <Button color="blue" onClick={() => this.makeCompletedTodo(todos.id)}  animated >
                       <Button.Content visible><Icon name='check' /> 
                       </Button.Content>
                       <Button.Content hidden>
                       Done
                       </Button.Content>
                     </Button>
-                    <p className="centerText">{todos.text}</p>
-                    <p className="centerText">{todos.dueDate}</p>
+                    <p className="centerText space text">{todos.text}</p>
+                    <p className="centerText space">{todos.dueDate}</p>
 
                   
 
@@ -47,7 +47,7 @@ class TodoList extends Component {
                       <Button
                         color="red"
                         onClick={() => this.props.deleteTodo(todos.id)} className="card-link">
-                        >Delete</Button>
+                        Delete</Button>
                     </Button.Group>
                   </div>
                 </div>

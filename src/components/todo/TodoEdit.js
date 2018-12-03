@@ -51,7 +51,7 @@ export default class TodoEdit extends Component {
               id="dueDate"
               placeholder={this.state.dueDate}  />
           </div>
-          <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Submit</button>
+          <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Save</button>
         </form>
       </React.Fragment>
     )
