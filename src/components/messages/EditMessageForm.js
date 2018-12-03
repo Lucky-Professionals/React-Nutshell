@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { Button, Form} from 'semantic-ui-react'
 
 export default class EditMessageForm extends Component {
 
@@ -44,7 +44,7 @@ export default class EditMessageForm extends Component {
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
-                    <Button type='submit' onClick={this.newMessage}>Send</Button>
+                    <Button icon='save' size='mini' onClick={this.newMessage}></Button>
                 </Form>
         </React.Fragment>
         )
