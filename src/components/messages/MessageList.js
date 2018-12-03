@@ -30,7 +30,7 @@ export default class MessageList extends Component {
                                             <p>{messages.message}</p>
                                         </Comment.Text>
                                         <Comment.Actions>
-                                            <Comment.Action
+                                            <Comment.Action 
                                                 onClick={() => this.props.deleteMessage(messages.id)
                                                     .then(() => this.props.history.push("/messages"))}
                                             >delete

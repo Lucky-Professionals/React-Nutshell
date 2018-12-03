@@ -53,7 +53,7 @@ export default class MessageForm extends Component {
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
-                    <Button onClick={this.newMessage} content='Add Comment' labelPosition='left' icon='edit' primary />
+                    <Button onClick={this.newMessage} content='Add Comment' labelPosition='left' icon='comments outline' primary />
                 </Form>
             </React.Fragment>
         )
