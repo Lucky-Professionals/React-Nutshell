@@ -6,7 +6,6 @@ import { Button,Modal, Header,Comment} from 'semantic-ui-react'
 
 export default class EditMessageModal extends Component {
     state = { open: false }
-
     show = dimmer => () => this.setState({ dimmer, open: true })
     close = () => this.setState({ open: false })
 
