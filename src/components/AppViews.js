@@ -8,6 +8,7 @@ import NewsList from "./news/newslist"
 import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
+import ProfileEdit from "./profile/profileEdit"
 import ProfileDetails from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
@@ -21,7 +22,9 @@ import TodoList from './todo/TodoList'
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => localStorage.getItem("credentials") !== null
+  // call login here
   credentials = JSON.parse(localStorage.getItem('credentials'))
+  credentials = {id:1}
   state = {
     users: [],
     profiles: [],
@@ -83,7 +86,15 @@ export default class ApplicationViews extends Component {
     .then(news => this.setState({
       news: news
     }))
-  addProfile = (profiles, item) => DataManager.add(profiles, item)
+  addProfile = (profiles, item) => {
+     return   DataManager.add(profiles, item)
+    .then(() => DataManager.getAll("profiles"))
+    .then(profiles => this.setState({
+      profiles: profiles
+    })
+    )
+  } 
+  editProfile = (id, profiles) => DataManager.edit("profiles", id, profiles)
     .then(() => DataManager.getAll("profiles"))
     .then(profiles => this.setState({
       profiles: profiles
@@ -234,19 +245,33 @@ export default class ApplicationViews extends Component {
             addTodo={this.addTodo} />
         }} />
         <Route exact path="/profile" render={(props) => {
+         if (this.isAuthenticated()) { 
           return <ProfilePage {...props}
             deleteProfile={this.deleteProfile}
-            profiles={this.state.profiles} />
+            profiles={this.state.profiles}
+            editProfile={this.editProfile}
+         /> 
+        } else {
+          return <Redirect to="/login" />
+        }
         }} />
         < Route path="/profile/new" render={(props) => {
           return <ProfileForm {...props}
             addProfile={this.addProfile} />
         }} />
-        <Route path="/profile/:profileId(\d+)" render={(props) => {
-          return <ProfileDetails {...props}
+        <Route exact path="/profile/edit/:profileId(\d+)" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <ProfileEdit {...props} 
+            editProfile={this.editProfile} 
             profiles={this.state.profiles} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
+        
       </React.Fragment>
     )
   }
 }
+
+
