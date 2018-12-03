@@ -1,21 +1,22 @@
 import React, {Component} from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Modal } from 'semantic-ui-react'
 
 export default class EditMessageForm extends Component {
 
     state = {
-
+        // message: this.props.message
     }
 
     handleFieldChange = evt => {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
+        
     }
 
     componentDidMount() {
-        const message = this.props.messages.find(a => a.id === parseInt(this.props.match.params.messageId))
-        this.setState(message)
+        // const message = this.props.messages.find(a => a.id === this.props.messageId)
+        this.setState(this.props.message)
     }
 
     newMessage = (evt) => {
@@ -24,27 +25,22 @@ export default class EditMessageForm extends Component {
         let editedMessage = {
             message: this.state.message,
         }
-        this.props.editMessage(this.state.id, editedMessage)
+        this.props.editMessage(this.props.messageId, editedMessage)
         .then(() => {
-            this.props.history.push("/messages")
+            this.props.close()
         })
     }
 
     render () {
         return (
         <React.Fragment>
- <Form className="messageForm"> 
+                    <Form className="messageForm"> 
                     <Form.Field>
-                        <label>Message</label>
                         <label htmlFor="messageId"></label>
-                        <label htmlFor="messageTo">Message To:</label>
-                        <input onChange={this.handleFieldChange}
-                            id="messageTo" placeholder={this.state.to} />
                     </Form.Field>
                     <Form.Field>
-                        <label htmlFor="message">Message:</label>
                         <input onChange={this.handleFieldChange}
-                            id="message" placeholder={this.state.message} />
+                            id="message" defaultValue={this.props.message.message}/>
                     </Form.Field>
                     <Form.Field>
                     </Form.Field>
