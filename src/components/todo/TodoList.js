@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, Header } from 'semantic-ui-react'
 import TodoForm from './TodoForm';
 import "./todos.css"
 
@@ -18,6 +18,10 @@ class TodoList extends Component {
 
     return (
       <React.Fragment>
+        <Header color="blue" as='h2' icon textAlign='center'>
+          <Icon name='bell outline' />
+          <Header.Content>To Do List</Header.Content>
+        </Header> 
         <TodoForm {...this.props}/>
         {/* individual list of tasks */}
         <section className="container">
