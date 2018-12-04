@@ -9,6 +9,7 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
 import ProfileEdit from "./profile/profileEdit"
+import ProfileDetail from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import EditEventForm from "./events/EditEventForm"
@@ -258,12 +259,16 @@ export default class ApplicationViews extends Component {
         }} />
 
         <Route exact path="/todos" render={(props) => {
+          if (this.isAuthenticated()) {
           return <TodoList {...props}
             todos={this.state.todos}
             deleteTodo={this.deleteTodo}
             editTodo={this.editTodo}
             addTodo={this.addTodo}
           />
+        } else {
+          return <Redirect to="/login" />
+        }
         }} />
 
 
@@ -301,6 +306,10 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+        <Route path="/profile/detail/:profileId(\d+)" render={(props) => {
+                    return <ProfileDetail {...props} 
+                    profiles={this.state.profiles} />
+                }} />
 
       </React.Fragment>
     )

@@ -5,7 +5,8 @@
 
 
 .todos {
-  background: rgba(220, 220, 220, 0.25)	;
+  /* background: rgba(220, 220, 220, 0.25)	; */
+  background: linen;
   display: flex;
   margin: 20px;
   padding: 5px;
