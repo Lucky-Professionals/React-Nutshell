@@ -60,7 +60,7 @@ console.log(this.props)
               id="location"
               placeholder="Event Location" />
           </div>
-          <button type="submit" onClick={this.constructNewEvent} className="ui button">Save</button>
+          <Button type="submit" onClick={this.constructNewEvent} color="blue">Save</Button>
         </form>
     )
 
