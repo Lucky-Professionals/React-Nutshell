@@ -5,12 +5,14 @@
   flex-wrap: wrap;
   flex-direction: row;
   margin: 100px;
+  border-color: 1px solid red;
 }
 
 .profileCards {
   background-color: linen;
   border: silver solid 1px;
   box-shadow: 8px 5px 5px silver;
+  border-color: 1px solid blue;
 }
 
 .edBtns {
