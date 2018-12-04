@@ -37,14 +37,10 @@ export default class NewsList extends Component {
           <Header.Content>News</Header.Content>
         </Header>
 
-        <div className="newsButton list">
-          <button type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              this.props.history.push("/news/new")
-            }}>
-            Add New Article
-          </button>
+        <div className="profileBtn">
+          <Button color="blue" fluid onClick={() => {this.props.history.push("/news/new")}}>
+            <Button.Content>Add News Item</Button.Content>
+            </Button>
         </div>
         <div className="article-list">
           <section className="news">

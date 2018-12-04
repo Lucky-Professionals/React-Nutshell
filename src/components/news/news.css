@@ -4,6 +4,12 @@
   justify-content: center;
 }
 
+.profileBtn {
+  padding: 30px;
+  margin-right: 350px;
+  margin-left: 350px;
+}
+
 .news {
   display: flex;
   justify-content: space-evenly;
