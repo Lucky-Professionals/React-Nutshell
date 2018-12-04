@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
-// import 'semantic-ui-css/semantic.min.css';
-=======
->>>>>>> master
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Header } from 'semantic-ui-react'
 
 
 export default class MessageForm extends Component {

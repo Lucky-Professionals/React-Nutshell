@@ -54,8 +54,8 @@ export default class NavBar extends Component {
             <Icon name='sign-out alternate' />
           </Button.Content>
         </Button>
-        </div>
-      </nav>
+        </div>      
+        </nav>
     )
   }
 }
