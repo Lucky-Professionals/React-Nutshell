@@ -1,6 +1,9 @@
-.container {
+.containerTodo {
   margin: 20px;
-  width: 800px;
+  margin-left: 200px;
+  margin-right: 200px;
+  width: auto;
+  align-content: center;
 }
 
 
@@ -20,6 +23,6 @@
 .space {
   margin: 10px;
 }
-.text {
+.textTodo {
   width: 450px;
 }

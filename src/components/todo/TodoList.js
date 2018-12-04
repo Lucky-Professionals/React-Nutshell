@@ -35,11 +35,11 @@ class TodoList extends Component {
         {/* Pulls our form first */}
         <TodoForm {...this.props} />
         {/* individual list of tasks */}
-        <section className="container">
+        <section className="containerTodo">
           {
             uncompletedTodos.map(todos =>
               <div key={todos.id} >
-                <div className="container">
+                <div className="containerTodo">
                   <div className="todos">
                     <Button color="blue" onClick={() => this.makeCompletedTodo(todos.id)} animated >
                       <Button.Content visible><Icon name='check' />
@@ -48,7 +48,7 @@ class TodoList extends Component {
                         Done
                       </Button.Content>
                     </Button>
-                    <p className="centerText space text">{todos.text}</p>
+                    <p className="centerText space textTodo">{todos.text}</p>
                     <p className="centerText space">{todos.dueDate}</p>
                     <Button.Group size="mini" >
                       <Button
