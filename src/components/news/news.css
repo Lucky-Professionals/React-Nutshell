@@ -1,6 +1,6 @@
 .newsButton {
   display: flex;
-  margin: 20px 0 10px 30px;
+  margin: 20px 0;
   justify-content: center;
 }
 
