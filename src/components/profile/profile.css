@@ -1,7 +1,19 @@
 .cards {
+  /* border: green solid 1px; */
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex-direction: row;
   margin: 100px;
 }
 
+.profileCards {
+  background-color: linen;
+  border: grey solid 1px;
+  box-shadow: 8px 5px 5px silver;
+}
+
+.profileBtns {
+  display: flex;
+  justify-content: center;
+}

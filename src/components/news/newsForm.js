@@ -1,7 +1,5 @@
 import React, { Component } from "react"
 import "./news.css"
-// import { createCredentials } from "crypto";
-
 
 export default class NewsForm extends Component {
   // Set initial state
@@ -9,7 +7,8 @@ export default class NewsForm extends Component {
     name: "",
     synopsis: "",
     picLink: "",
-    url: ""
+    url: "",
+    date: ""
   }
 
   // Update state whenever an input field is edited
@@ -31,7 +30,8 @@ export default class NewsForm extends Component {
       synopsis: this.state.synopsis,
       picLink: this.state.picLink,
       url: this.state.url,
-      userId: credentials.id
+      userId: credentials.id,
+      date: new Date().toISOString()
     }
 
     // Create the news and redirect user to news list
@@ -69,7 +69,7 @@ export default class NewsForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="url">URL for article</label>
-            <input type="text" required
+            <input type="url" required
               className="form-control"
               onChange={this.handleFieldChange}
               id="url"
