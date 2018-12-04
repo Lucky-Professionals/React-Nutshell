@@ -16,24 +16,29 @@ export default class TodoForm extends Component {
     this.setState(stateToChange)
   }
 
+
   constructNewTodo = evt => {
     evt.preventDefault()
-      const todo = {
-        text: this.state.text,
-        dueDate: this.state.dueDate,
-        completed: false
-      }
-    
-      // Create the task and redirect user to Todo list
-      this.props.addTodo(todo)    
+    //getting our user id from our local storage
+    const credentials = JSON.parse(localStorage.getItem('credentials'))
+    //the todo object
+    const todo = {
+      text: this.state.text,
+      dueDate: this.state.dueDate,
+      completed: false,
+      userId: credentials.id
+    }
+    //add this will post our new entry to todos db then will clear the form
+    this.props.addTodo(todo)
       .then(() => {
-        this.setState({text: "", dueDate: ""})
-      } 
-   )
-      
+        this.setState({ text: "", dueDate: "" })
+      }
+      )
+
   }
 
   render() {
+
     return (
       <React.Fragment>
         <form className="todoForm container">
@@ -46,19 +51,19 @@ export default class TodoForm extends Component {
               value={this.state.text}
               placeholder="Add a task..." />
           </div>
-
+        
           <div className="form-group">
             <label htmlFor="dueDate">Due Date</label>
-            <input type="date"  required
+            <input type="date" required
               className="form-control"
               onChange={this.handleFieldChange}
               id="dueDate"
               value={this.state.dueDate}
-              />
+            />
           </div>
           <button type="submit" onClick={this.constructNewTodo} className="btn btn-primary">Submit</button>
         </form>
-        
+
       </React.Fragment>
     )
   }
