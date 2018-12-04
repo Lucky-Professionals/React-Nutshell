@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 export default class Register extends Component {
 
@@ -34,35 +35,48 @@ export default class Register extends Component {
 
         return (
             <div className="forms">
+            <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+    <Header as='h2' color='teal' textAlign='center'>
+                            Register an account
+    </Header>
+    <Form size='large' onSubmit={this.handleLogin}>
+    <Segment stacked>
                 <div className="registerForm">
-                    <form onSubmit={this.handleRegister}>
-                        <h1 className="h3 mb-3 font-weight-normal">Please Create Account</h1>
-                        <label htmlFor="userName">
-                            Username
-                        </label>
-                        <input onChange={this.handleFieldChange} type="username"
+                        <Form.Input onChange={this.handleFieldChange} type="username"
                             id="username"
                             placeholder="Username"
-                            required="" autoFocus="" />
-                        <label htmlFor="userEmail">
-                            Email address
-                        </label>
-                        <input onChange={this.handleFieldChange} type="email"
+                            required="" autoFocus=""
+                            fluid icon='user' iconPosition='left' />
+                        <Form.Input onChange={this.handleFieldChange} type="email"
                             id="userEmail"
                             placeholder="Email address"
-                            required="" autoFocus="" />
-                        <label htmlFor="userPassword">
-                            Password
-                        </label>
-                        <input onChange={this.handleFieldChange} type="password"
+                            required="" autoFocus="" fluid
+                            icon='mail'
+                            iconPosition='left'
+                            type='email'/>
+                        <Form.Input onChange={this.handleFieldChange} type="password"
                             id="userPassword"
                             placeholder="Password"
-                            required="" />
-                        <button type="submit" onClick={this.handleButtonClick} className="btn btn-primary">
+                            required="" fluid
+                            icon='lock'
+                            iconPosition='left'
+                            type='password' />
+                        <Button  color='teal' fluid size='large' type="submit" onClick={this.handleButtonClick} className="btn btn-primary">
                             Register
-                        </button>
-                    </form>
+                        </Button>
                 </div>
+     </Segment>
+    </Form>
+    </Grid.Column>
+    </Grid>
             </div>
         )
     }

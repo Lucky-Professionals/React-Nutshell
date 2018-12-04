@@ -2,6 +2,10 @@
     margin: 100px; 
 }
 
+.ui.floating.message {
+    background: linen;
+}
+
 .ui.modal {
     width: 60%;
     height: 40%;
@@ -13,6 +17,18 @@
 .MessageCard {
     margin-bottom: 15px;
     margin-top: 15px;
+    background-color: linen;
 }
+
+.container{
+    display:flex;
+    flex-direction: row;
+}
+
+.ui.comments .comment .actions a:last-child {
+    margin-right: 8px;
+}
+
+
 
 

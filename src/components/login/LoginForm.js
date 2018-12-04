@@ -35,31 +35,48 @@ export default class Login extends Component {
     }
 
     render() {
-        
+
         return (
-            <div className="forms list">
-                <div className="loginForm">
-                    <form onSubmit={this.handleLogin}>
-                        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                        <label htmlFor="inputEmail">
-                            Email address
-                        </label>
-                        <input onChange={this.handleFieldChange} type="email"
-                            id="email"
-                            placeholder="Email address"
-                            required="" autoFocus="" />
-                        <label htmlFor="inputPassword">
-                            Password
-                        </label>
-                        <input onChange={this.handleFieldChange} type="password"
-                            id="password"
-                            placeholder="Password"
-                            required="" />
-                        <button type="submit" className="btn btn-primary">
-                            Sign in
-                        </button>
-                    </form>
-                </div>
+            <div className='login-form'>
+                <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+                <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+                    <Grid.Column style={{ maxWidth: 450 }}>
+                        <Header as='h2' color='teal' textAlign='center'>
+                            Log-in to your account
+                        </Header>
+                        <Form size='large' onSubmit={this.handleLogin}>
+                            <Segment stacked>
+                                <Form.Input onChange={this.handleFieldChange} type="email"
+                                    id="email"
+                                    placeholder="Email address"
+                                    required="" autoFocus="" fluid icon='mail' iconPosition='left' />
+                                <Form.Input
+                                    onChange={this.handleFieldChange} type="password"
+                                    id="password"
+                                    placeholder="Password"
+                                    required=""
+                                    fluid
+                                    icon='lock'
+                                    iconPosition='left'
+                                    type='password'
+                                />
+
+                                <Button type="submit" className="btn btn-primary" color='teal' fluid size='large'>
+                                    Login
+                                </Button>
+                            </Segment>
+                        </Form>
+                        <Message>
+                            New to us? <a href='http://localhost:3000/register'>Sign Up</a>
+                        </Message>
+                    </Grid.Column>
+                </Grid>
             </div>
         )
     }

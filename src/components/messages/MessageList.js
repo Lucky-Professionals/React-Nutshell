@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MessageForm from './MessageForm'
 import EditMessageModal from './EditMessageModal'
 import './Message.css'
-import { Comment,Message } from 'semantic-ui-react'
+import { Comment,Message, Header,Icon } from 'semantic-ui-react'
 
 export default class MessageList extends Component {
 
@@ -19,6 +19,10 @@ export default class MessageList extends Component {
         console.log(credentials)
         return (
             <React.Fragment>
+                <Header color="blue" as='h2' icon textAlign='center'>
+          <Icon name='comments outline' />
+          <Header.Content>Messages</Header.Content>
+        </Header> 
                 {
                     this.props.messages.map(messages =>
                         <div id={`message--${messages.id}`} key={messages.id} className="MessageCard">
@@ -37,6 +41,7 @@ export default class MessageList extends Component {
                                             {
                                                  messages.userId === credentials.id ? (
                                                      <React.Fragment >
+                                                         <div className="container">
                                                 <Comment.Actions>
                                                     <Comment.Action
                                                         onClick={() => this.props.deleteMessage(messages.id)
@@ -47,6 +52,7 @@ export default class MessageList extends Component {
                                                 <Comment.Actions>
                                                     <EditMessageModal {...this.props} messageId={messages.id} message={messages} />
                                                 </Comment.Actions>
+                                                </div>
                                                 </React.Fragment>
                                                  ): ""
                                     }
