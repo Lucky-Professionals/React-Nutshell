@@ -41,7 +41,7 @@ export default class TodoForm extends Component {
 
     return (
       <React.Fragment>
-        <form className="todoForm container">
+        <form className="todoForm containerTodo">
           <div className="form-group">
             <label htmlFor="todoName">Task</label>
             <input type="text" required
