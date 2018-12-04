@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import { Icon } from 'semantic-ui-react'
+import { Icon, Button } from 'semantic-ui-react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./nav.css"
 
@@ -11,7 +11,7 @@ export default class NavBar extends Component {
         <ul className="nav nav-pills">
 
           <li className="nav-item">
-            <Link className="nav-link" to="/profile"><Icon name="user circle" size="large"  />User Profiles</Link>
+            <Link className="nav-link" to="/profile"><Icon name="user circle" size="large" />User Profiles</Link>
           </li>
 
           <li className="nav-item">
@@ -36,7 +36,25 @@ export default class NavBar extends Component {
 
         </ul>
         <p id="navTagline">Welcome to <img id="react-img" src="../../../react.png"></img> Nutshell!</p>
-
+        <div className="logbtn">
+        <Button animated onClick={() => {
+          document.location.href = 'http://localhost:3000/login'
+        }}>
+          <Button.Content visible>Login</Button.Content>
+          <Button.Content hidden>
+            <Icon name='sign-in alternate' />
+          </Button.Content>
+        </Button>
+        <Button animated onClick={() => {
+          localStorage.clear("credentials")
+          document.location.href = 'http://localhost:3000'
+        }}>
+          <Button.Content visible>Logout</Button.Content>
+          <Button.Content hidden>
+            <Icon name='sign-out alternate' />
+          </Button.Content>
+        </Button>
+        </div>
       </nav>
     )
   }
