@@ -1,8 +1,8 @@
 .eventsButton {
   display: flex;
-  margin: 100px 0 10px 30px;
+  margin: 100px 0 0px 1.5em;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 30px
 }
 
 .events {
@@ -17,3 +17,27 @@
   line-height: 3;
   font-size: medium;
 }
+.eventsHeader{
+    display: flex;
+    margin: 100px 0 0px 1.5em;
+    justify-content: center;
+    margin-bottom: 30p
+}
+.cards {
+  display: flex;
+  margin: 100px 0 0px 0px;
+  justify-content: center;
+  margin-bottom: 30px
+}
+.arcticlelist{
+    display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+#eventCards{
+    background-color: linen;
+    border: silver solid 1px;
+    box-shadow: 8px 5px 5px silver;
+  }
+

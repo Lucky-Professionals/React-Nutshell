@@ -38,24 +38,24 @@ export default class EditEventForm extends Component {
         })
     }
 
-    render () {
+    render() {
       return (
-        <form className="eventForm list">
+        <form className="ui form">
         <div className="event-form-group">
           <label htmlFor="eventName">Event</label>
           <input type="text" required
             className="event-form-control"
             onChange={this.handleFieldChange}
             id="name"
-            placeholder={this.state.name} />
+            placeholder="Event Name" />
         </div>
         <div className="event-form-group">
               <label htmlFor="Date">Date</label>
-              <input type="date" required
+              <input type="datetime-local" required
                 className="event-form-control"
                 onChange={this.handleFieldChange}
                 id="date"
-                placeholder={this.state.date} />
+                placeholder="Date" />
             </div>
             <div className="event-form-group">
               <label htmlFor="Location">Location</label>
@@ -63,9 +63,9 @@ export default class EditEventForm extends Component {
                 className="event-form-control"
                 onChange={this.handleFieldChange}
                 id="location"
-                placeholder={this.state.location} />
+                placeholder="Event Location" />
             </div>
-            <button type="submit" onClick={this.newEvent} className="save-event-btn">Save</button>
+            <Button type="submit" onClick={this.constructNewEvent} color="blue">Save</Button>
           </form>
       )}
 }

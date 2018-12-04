@@ -9,6 +9,7 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
 import ProfileEdit from "./profile/profileEdit"
+import ProfileDetail from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import EditEventForm from "./events/EditEventForm"
@@ -67,11 +68,11 @@ export default class ApplicationViews extends Component {
       events: events
     }))
 
-  deleteEvent = id => DataManager.delete("events", id)
-    .then(() => DataManager.getAll("events"))
-    .then(events => this.setState({
-      events: events
-    }))
+  // deleteEvent = id => DataManager.delete("events", id)
+  //   .then(() => DataManager.getAll("events"))
+  //   .then(events => this.setState({
+  //     events: events
+  //   }))
   editEvent = (id, events) => DataManager.edit("events", id, events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
@@ -186,10 +187,15 @@ export default class ApplicationViews extends Component {
         {/* EVENTS ROUTES */}
 
         <Route exact path="/events" render={(props) => {
+        if(this.isAuthenticated()) {
           return <EventList {...props}
-            events={this.state.events}
-            deleteEvent={this.deleteEvent}
-            editEvent={this.editEvent} />
+          events={this.state.events}
+          deleteEvent={this.deleteEvent}
+          editEvent={this.editEvent} />
+        }
+        else {
+          return<Redirect to="/login" />
+        }
         }} />
 
         < Route path="/events/new" render={(props) => {
@@ -253,12 +259,16 @@ export default class ApplicationViews extends Component {
         }} />
 
         <Route exact path="/todos" render={(props) => {
+          if (this.isAuthenticated()) {
           return <TodoList {...props}
             todos={this.state.todos}
             deleteTodo={this.deleteTodo}
             editTodo={this.editTodo}
             addTodo={this.addTodo}
           />
+        } else {
+          return <Redirect to="/login" />
+        }
         }} />
 
 
@@ -296,6 +306,10 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+        <Route path="/profile/detail/:profileId(\d+)" render={(props) => {
+                    return <ProfileDetail {...props} 
+                    profiles={this.state.profiles} />
+                }} />
 
       </React.Fragment>
     )

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+<<<<<<< HEAD
 // import 'semantic-ui-css/semantic.min.css';
+=======
+>>>>>>> master
 import { Button, Form } from 'semantic-ui-react'
 
 
@@ -34,9 +37,6 @@ export default class MessageForm extends Component {
             message: "",
             date: ""
         })
-
-        // .then(() => this.props.history.push("/messages"))
-
     }
 
     render() {
