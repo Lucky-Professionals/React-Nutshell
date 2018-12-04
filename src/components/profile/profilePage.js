@@ -9,23 +9,19 @@ export default class ProfilePage extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header as='h2' icon textAlign='center'>
+        <Header color="blue" as='h2' icon textAlign='center'>
           <Icon name='user circle' />
           <Header.Content>User Profiles</Header.Content>
-        </Header>        
+        </Header>   
         <div className="profileBtn">
-          <button type="button"
-            className="btn btn-success"
-            onClick={() => {
-              this.props.history.push("/profile/new")
-            }
-            }>Add Your Profile!</button>
-        </div>
-
-        <section>
+          <Button color="blue" fluid onClick={() => {this.props.history.push("/profile/new")}}>
+            <Button.Content hidden>Add Your Profile!</Button.Content>
+            </Button>
+        </div>     
+        <section className="cards">
           {
             this.props.profiles.map(profiles =>
-              <div key={profiles.id} className="cards list">
+              <div key={profiles.id} className="list">
                 <Card>
                   <div className="profileCards">
                     <Image src={rebel2} />
@@ -40,7 +36,7 @@ export default class ProfilePage extends Component {
 
                     </section>
                     <section>
-                      <div className="profileBtns">
+                      <div className="edBtns">
                         <Button.Group>
                           <Button color="teal" onClick={() => this.props.history.push(`/profile/edit/${profiles.id}`)}
                             className="editBtn">Edit

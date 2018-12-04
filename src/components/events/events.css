@@ -1,5 +1,19 @@
 .eventsButton {
   display: flex;
+  margin: 100px 0 10px 30px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.events {
+  display: flex;
   justify-content: space-evenly;
-  margin: 100px 0 10px 0;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+#cardText {
+  justify-content: space-evenly;
+  line-height: 3;
+  font-size: medium;
 }
