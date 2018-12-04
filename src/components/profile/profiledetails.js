@@ -13,21 +13,22 @@ export default class ProfileDetails extends Component {
 
 
     return (
-    <Segment>
-    <div key={profile.id}>
-    <Image src={joe} size='large' floated='right' />
-    <h2>{profile.name}</h2>
-    <p>{profile.location}</p>
-    <br></br>
-    <h4>Feed Me:</h4>
-    <p>{profile.favFood}</p>
-    <h4>I love the color:</h4>
-    <p>{profile.favColor}</p>
-    <br></br>
-    <p>{profile.quote}</p>
-    </div>
-  </Segment>
-    )}
+      <Segment>
+        <div key={profile.id}>
+          <Image src={joe} size='large' floated='right' />
+          <h2>{profile.name}</h2>
+          <p>{profile.location}</p>
+          <br></br>
+          <h4>Feed Me:</h4>
+          <p>{profile.favFood}</p>
+          <h4>I love the color:</h4>
+          <p>{profile.favColor}</p>
+          <br></br>
+          <p>{profile.quote}</p>
+        </div>
+      </Segment>
+    )
+  }
 }
 
 
