@@ -9,6 +9,7 @@ import NewsForm from "./news/newsForm"
 import ProfilePage from "./profile/profilePage"
 import ProfileForm from "./profile/profileForm"
 import ProfileEdit from "./profile/profileEdit"
+import ProfileDetail from "./profile/profiledetails"
 import EventForm from "./events/EventForm"
 import EventList from "./events/EventList"
 import EditEventForm from "./events/EditEventForm"
@@ -300,6 +301,10 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
+        <Route path="/profile/detail/:profileId(\d+)" render={(props) => {
+                    return <ProfileDetail {...props} 
+                    profiles={this.state.profiles} />
+                }} />
 
       </React.Fragment>
     )
