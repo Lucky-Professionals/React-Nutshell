@@ -15,7 +15,7 @@ export default class ProfilePage extends Component {
         </Header>   
         <div className="profileBtn">
           <Button color="blue" fluid onClick={() => {this.props.history.push("/profile/new")}}>
-            <Button.Content hidden>Add Your Profile!</Button.Content>
+            <Button.Content>Add Your Profile!</Button.Content>
             </Button>
         </div>     
         <section className="cards">
