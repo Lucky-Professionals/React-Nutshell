@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Icon, Header, Button } from 'semantic-ui-react'
 import "./profile.css"
 
 export default class ProfileForm extends Component {
@@ -34,6 +35,10 @@ export default class ProfileForm extends Component {
     render() {
         return (
             <React.Fragment>
+              <Header color="blue" as='h2' icon textAlign='center'>
+              <Icon name='user circle' />
+              <Header.Content>Create Your Profile!</Header.Content>
+        </Header>
                 <form className="profileForm list">
                     <div className="form-group">
                         <label htmlFor="profileName">Profile Name</label>
@@ -72,7 +77,11 @@ export default class ProfileForm extends Component {
                                id="quote" placeholder="Your quote" />
                     </div>
                     
-                    <button type="submit" onClick={this.constructNewProfile} className="btn btn-primary">Save Your Profile</button>
+
+                    <Button color="blue" fluid onClick={this.constructNewProfile}>
+                      <Button.Content>Add Your Profile!</Button.Content>
+                    </Button>
+                    {/* <button type="submit" onClick={this.constructNewProfile} className="btn btn-primary">Save Your Profile</button> */}
                 </form>
             </React.Fragment>
         )
