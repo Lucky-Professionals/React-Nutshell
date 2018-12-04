@@ -32,11 +32,7 @@ export default class ProfilePage extends Component {
                       <Card.Description>{profiles.quote}</Card.Description>
                     </Card.Description>
                     <br></br>
-                    <section>
-
-
-
-                    </section>
+                    {/* Card Buttons */}
                     <section>
                       <div className="edBtns">
                         <Button.Group>

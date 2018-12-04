@@ -81,7 +81,6 @@ export default class ProfileForm extends Component {
                     <Button color="blue" fluid onClick={this.constructNewProfile}>
                       <Button.Content>Add Your Profile!</Button.Content>
                     </Button>
-                    {/* <button type="submit" onClick={this.constructNewProfile} className="btn btn-primary">Save Your Profile</button> */}
                 </form>
             </React.Fragment>
         )
