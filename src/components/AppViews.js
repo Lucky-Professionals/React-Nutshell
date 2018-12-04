@@ -68,11 +68,11 @@ export default class ApplicationViews extends Component {
       events: events
     }))
 
-  deleteEvent = id => DataManager.delete("events", id)
-    .then(() => DataManager.getAll("events"))
-    .then(events => this.setState({
-      events: events
-    }))
+  // deleteEvent = id => DataManager.delete("events", id)
+  //   .then(() => DataManager.getAll("events"))
+  //   .then(events => this.setState({
+  //     events: events
+  //   }))
   editEvent = (id, events) => DataManager.edit("events", id, events)
     .then(() => DataManager.getAll("events"))
     .then(events => this.setState({
@@ -187,10 +187,15 @@ export default class ApplicationViews extends Component {
         {/* EVENTS ROUTES */}
 
         <Route exact path="/events" render={(props) => {
+        if(this.isAuthenticated()) {
           return <EventList {...props}
-            events={this.state.events}
-            deleteEvent={this.deleteEvent}
-            editEvent={this.editEvent} />
+          events={this.state.events}
+          deleteEvent={this.deleteEvent}
+          editEvent={this.editEvent} />
+        }
+        else {
+          return<Redirect to="/login" />
+        }
         }} />
 
         < Route path="/events/new" render={(props) => {
