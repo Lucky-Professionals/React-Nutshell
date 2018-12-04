@@ -38,7 +38,7 @@ export default class EditEventForm extends Component {
         })
     }
 
-    render() {
+    render () {
       return (
         <form className="ui form">
         <div className="event-form-group">
@@ -65,7 +65,7 @@ export default class EditEventForm extends Component {
                 id="location"
                 placeholder="Event Location" />
             </div>
-            <Button type="submit" onClick={this.constructNewEvent} color="blue">Save</Button>
+            <Button type="submit" onClick={this.newEvent} className="save-event-btn">Save</Button>
           </form>
       )}
 }
