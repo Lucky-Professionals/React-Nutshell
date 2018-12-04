@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import "./news.css"
 import DataManager from '../../module/DataManager'
-import { Button, Image } from 'semantic-ui-react'
+import { Button, Image, Header, Icon } from 'semantic-ui-react'
 
 export default class NewsList extends Component {
   credentials = JSON.parse(localStorage.getItem('credentials'))
@@ -32,42 +32,42 @@ export default class NewsList extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="newsButton list">
-          <button type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              this.props.history.push("/news/new")
-            }}>
-            Add New Article
-          </button>
+        <Header color="blue" as='h2' icon textAlign='center'>
+          <Icon name='newspaper outline' />
+          <Header.Content>News</Header.Content>
+        </Header>
+
+        <div className="profileBtn">
+          <Button color="blue" fluid onClick={() => {this.props.history.push("/news/new")}}>
+            <Button.Content>Add News Item</Button.Content>
+            </Button>
         </div>
         <div className="article-list">
           <section className="news">
-            {
-              this.state.news.map(news =>
-                <div className="eachArticle" key={news.id}>
-                  <div>
-                    <Image className="newsImage" src={news.picLink} rounded />
-                  </div>
-                  <div className="article-Details">
-                    <h2>{news.name}</h2>
-                    <h3>{news.synopsis}</h3><br />
-                    <a href={news.url}>{news.url}</a><br />
-                    {news.date}<br />
-                    <Button.Group size="mini" >
-                      <Button
-                        color="teal"
-                        onClick={() => this.props.history.push(`/news/edit/${news.id}`)}
-                      >Edit</Button>
-                      <Button.Or />
-                      <Button
-                        color="red"
-                        onClick={() => this.deleteNews("news", news.id)} className="card-link">
-                        Delete</Button>
-                    </Button.Group>
-                  </div>
+            {this.state.news.map(news =>
+              <div className="eachArticle" key={news.id}>
+                <div>
+                  <Image className="newsImage" src={news.picLink} rounded />
                 </div>
-              )
+                <div className="article-Details">
+                  <h2>{news.name}</h2>
+                  <h3>{news.synopsis}</h3><br />
+                  <a href={news.url}>{news.url}</a><br />
+                  {news.date}<br />
+                  <Button.Group size="mini" >
+                    <Button
+                      color="teal"
+                      onClick={() => this.props.history.push(`/news/edit/${news.id}`)}
+                    >Edit</Button>
+                    <Button.Or />
+                    <Button
+                      color="red"
+                      onClick={() => this.deleteNews("news", news.id)} className="card-link">
+                      Delete</Button>
+                  </Button.Group>
+                </div>
+              </div>
+            )
             }
           </section>
         </div>

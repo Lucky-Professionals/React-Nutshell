@@ -9,11 +9,18 @@
 
 .profileCards {
   background-color: linen;
-  border: grey solid 1px;
+  border: silver solid 1px;
   box-shadow: 8px 5px 5px silver;
 }
 
-.profileBtns {
+.edBtns {
   display: flex;
   justify-content: center;
 }
+
+.profileBtn {
+  padding: 30px;
+  margin-right: 350px;
+  margin-left: 350px;
+}
+
