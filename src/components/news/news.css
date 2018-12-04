@@ -1,7 +1,13 @@
 .newsButton {
   display: flex;
-  margin: 20px 0 10px 30px;
+  margin: 20px 0;
   justify-content: center;
+}
+
+.profileBtn {
+  padding: 30px;
+  margin-right: 350px;
+  margin-left: 350px;
 }
 
 .news {
