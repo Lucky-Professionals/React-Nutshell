@@ -254,12 +254,16 @@ export default class ApplicationViews extends Component {
         }} />
 
         <Route exact path="/todos" render={(props) => {
+          if (this.isAuthenticated()) {
           return <TodoList {...props}
             todos={this.state.todos}
             deleteTodo={this.deleteTodo}
             editTodo={this.editTodo}
             addTodo={this.addTodo}
           />
+        } else {
+          return <Redirect to="/login" />
+        }
         }} />
 
 
