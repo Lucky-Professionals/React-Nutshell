@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react'
+
 
 export default class EventForm extends Component {
   state = {
@@ -33,7 +35,7 @@ console.log(this.props)
 
   render() {
     return (
-      <form className="eventForm list">
+      <form className="ui form">
       <div className="event-form-group">
         <label htmlFor="eventName">Event</label>
         <input type="text" required
@@ -44,7 +46,7 @@ console.log(this.props)
       </div>
       <div className="event-form-group">
             <label htmlFor="Date">Date</label>
-            <input type="date" required
+            <input type="datetime-local" required
               className="event-form-control"
               onChange={this.handleFieldChange}
               id="date"
@@ -58,7 +60,7 @@ console.log(this.props)
               id="location"
               placeholder="Event Location" />
           </div>
-          <button type="submit" onClick={this.constructNewEvent} className="save-event-btn">Save</button>
+          <Button type="submit" onClick={this.constructNewEvent} color="blue">Save</Button>
         </form>
     )
 
